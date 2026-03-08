@@ -1657,20 +1657,36 @@ function ctxDo(a){g('ctxMenu').classList.remove('open');if(!ctxId)return;if(a===
 function openConvertModal(){openModal('convertModal');}
 function handleConvertDrop(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f)processConvert(f);}
 function handleConvertFile(e){var f=e.target.files[0];if(f)processConvert(f);e.target.value='';}
+
 function processConvert(file){
   var stat=g('cvtStatus'),acts=g('cvtActions');
   stat.className='cvt-stat show';stat.textContent='⏳ Loading PDF library…';acts.className='cvt-acts';
+
   function run(){
     var reader=new FileReader();
     reader.onload=function(ev){
       window.pdfjsLib.getDocument({data:ev.target.result}).promise.then(function(pdf){
-        var n=pdf.numPages,texts=[];stat.textContent='📄 Extracting '+n+' page'+(n!==1?'s':'')+'…';
+        var n=pdf.numPages;
+        stat.textContent='📄 Extracting '+n+' page'+(n!==1?'s':'')+'…';
+
+        // Collect rich content from every page
+        var pageDataArr=[];
         var chain=Promise.resolve();
-        for(var i=1;i<=n;i++){(function(pi){chain=chain.then(function(){return pdf.getPage(pi).then(function(p){return p.getTextContent().then(function(tc){texts.push('--- Page '+pi+' ---\n'+tc.items.map(function(it){return it.str;}).join(' '));stat.textContent='📄 Page '+pi+'/'+n+'…';});});});})(i);}
+        for(var i=1;i<=n;i++){(function(pi){
+          chain=chain.then(function(){
+            return pdf.getPage(pi).then(function(page){
+              var vp=page.getViewport({scale:1});
+              return page.getTextContent({normalizeWhitespace:false,includeMarkedContent:false}).then(function(tc){
+                pageDataArr.push({pageNum:pi,items:tc.items,height:vp.height,width:vp.width});
+                stat.textContent='📄 Page '+pi+'/'+n+'…';
+              });
+            });
+          });
+        })(i);}
+
         chain.then(function(){
-          if(!texts.join('').trim()){stat.textContent='⚠️ No extractable text found.';return;}
           stat.textContent='📝 Building Word document…';
-          makeDocx(texts.join('\n')).then(function(blob){
+          makeDocxRich(pageDataArr,n).then(function(blob){
             cvtBlob=blob;cvtName=file.name.replace(/\.pdf$/i,'.docx');
             stat.textContent='✅ Done: "'+cvtName+'"';acts.className='cvt-acts show';
             g('dlCvtBtn').onclick=function(){var u=URL.createObjectURL(cvtBlob),a=document.createElement('a');a.href=u;a.download=cvtName;a.click();setTimeout(function(){URL.revokeObjectURL(u);},1000);toast('Downloading…');};
@@ -1687,22 +1703,169 @@ function processConvert(file){
   if(window.pdfjsLib){run();}
   else{var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';s.onload=function(){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';run();};s.onerror=function(){stat.textContent='❌ Failed to load PDF library';};document.head.appendChild(s);}
 }
-function makeDocx(text){
+
+function makeDocxRich(pageDataArr,totalPages){
   return new Promise(function(resolve){
     function build(){
+      // ── Step 1: Analyse all font sizes to determine relative heading levels
+      var allSizes=[];
+      pageDataArr.forEach(function(pd){
+        pd.items.forEach(function(it){
+          if(it.str&&it.str.trim()){
+            var h=Math.abs(it.transform[3])||12;
+            allSizes.push(Math.round(h*10)/10);
+          }
+        });
+      });
+      allSizes.sort(function(a,b){return b-a;});
+      // Body size = most common size (mode)
+      var sizeCount={};allSizes.forEach(function(s){sizeCount[s]=(sizeCount[s]||0)+1;});
+      var bodySize=parseFloat(Object.keys(sizeCount).sort(function(a,b){return sizeCount[b]-sizeCount[a];})[0])||12;
+      var h1Threshold=bodySize*1.5;
+      var h2Threshold=bodySize*1.2;
+
+      // ── Step 2: Group items into lines, then paragraphs
+      function xmlEsc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+      var allParas=[]; // array of {xml, style}
+
+      pageDataArr.forEach(function(pd,pidx){
+        if(pidx>0){
+          // Page break between pages
+          allParas.push({xml:'<w:p><w:r><w:br w:type="page"/></w:r></w:p>',style:null});
+        }
+
+        var items=pd.items.filter(function(it){return it.str&&it.str.trim();});
+        if(!items.length)return;
+
+        // Group by Y position (same line = within 2pt)
+        var lines=[];
+        items.forEach(function(it){
+          var y=Math.round((pd.height-it.transform[5])*10)/10;
+          var x=it.transform[4];
+          var found=false;
+          for(var li=0;li<lines.length;li++){
+            if(Math.abs(lines[li].y-y)<3){
+              lines[li].items.push({str:it.str,x:x,fontSize:Math.abs(it.transform[3])||bodySize,bold:!!(it.fontName&&(it.fontName.toLowerCase().indexOf('bold')!==-1||it.fontName.toLowerCase().indexOf('black')!==-1)),italic:!!(it.fontName&&it.fontName.toLowerCase().indexOf('italic')!==-1)});
+              found=true;break;
+            }
+          }
+          if(!found)lines.push({y:y,items:[{str:it.str,x:x,fontSize:Math.abs(it.transform[3])||bodySize,bold:!!(it.fontName&&(it.fontName.toLowerCase().indexOf('bold')!==-1||it.fontName.toLowerCase().indexOf('black')!==-1)),italic:!!(it.fontName&&it.fontName.toLowerCase().indexOf('italic')!==-1)}]});
+        });
+
+        // Sort lines top-to-bottom
+        lines.sort(function(a,b){return a.y-b.y;});
+
+        lines.forEach(function(line){
+          // Sort items left-to-right within line
+          line.items.sort(function(a,b){return a.x-b.x;});
+          var lineText=line.items.map(function(it){return it.str;}).join(' ').trim();
+          if(!lineText)return;
+
+          // Determine dominant font size for this line
+          var maxSize=Math.max.apply(null,line.items.map(function(it){return it.fontSize;}));
+          var twips=Math.round(maxSize*2); // OOXML half-points
+          var isH1=maxSize>=h1Threshold;
+          var isH2=maxSize>=h2Threshold&&!isH1;
+
+          // Build run XML preserving per-run formatting
+          var runsXml='';
+          line.items.forEach(function(it){
+            if(!it.str)return;
+            var rPr='';
+            var itTwips=Math.round(it.fontSize*2);
+            rPr+='<w:sz w:val="'+itTwips+'"/><w:szCs w:val="'+itTwips+'"/>';
+            if(it.bold||isH1)rPr+='<w:b/><w:bCs/>';
+            if(it.italic)rPr+='<w:i/><w:iCs/>';
+            runsXml+='<w:r><w:rPr>'+rPr+'</w:rPr><w:t xml:space="preserve">'+xmlEsc(it.str)+'</w:t></w:r>';
+          });
+
+          var pPr='';
+          if(isH1){pPr='<w:pPr><w:pStyle w:val="Heading1"/><w:spacing w:before="240" w:after="120"/></w:pPr>';}
+          else if(isH2){pPr='<w:pPr><w:pStyle w:val="Heading2"/><w:spacing w:before="160" w:after="80"/></w:pPr>';}
+          else{pPr='<w:pPr><w:spacing w:after="80"/></w:pPr>';}
+
+          allParas.push({xml:'<w:p>'+pPr+runsXml+'</w:p>'});
+        });
+      });
+
+      var bodyXml=allParas.map(function(p){return p.xml;}).join('');
+
+      // ── Step 3: Build OOXML zip
       var zip=new JSZip();
-      zip.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>');
-      zip.folder('_rels').file('.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
-      var paras=text.split('\n').map(function(l){var e=l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');return l.indexOf('--- Page ')===0?'<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t>'+e+'</w:t></w:r></w:p>':'<w:p><w:r><w:t xml:space="preserve">'+e+'</w:t></w:r></w:p>';}).join('');
+
+      zip.file('[Content_Types].xml',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'+
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'+
+        '<Default Extension="xml" ContentType="application/xml"/>'+
+        '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'+
+        '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>'+
+        '<Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>'+
+        '</Types>');
+
+      zip.folder('_rels').file('.rels',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>'+
+        '</Relationships>');
+
       var wf=zip.folder('word');
-      wf.file('document.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+paras+'<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr></w:body></w:document>');
-      wf.file('styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:style w:type="paragraph" w:styleId="Normal"><w:name w:val="Normal"/><w:rPr><w:sz w:val="24"/></w:rPr></w:style><w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:rPr><w:b/><w:sz w:val="32"/><w:color w:val="4F8EF7"/></w:rPr></w:style></w:styles>');
-      wf.folder('_rels').file('document.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"></Relationships>');
+      wf.folder('_rels').file('document.xml.rels',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'+
+        '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>'+
+        '</Relationships>');
+
+      var bodySzTwips=Math.round(bodySize*2);
+      wf.file('styles.xml',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'+
+        ' xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml">'+
+        // Default / Normal
+        '<w:style w:type="paragraph" w:default="1" w:styleId="Normal">'+
+          '<w:name w:val="Normal"/>'+
+          '<w:pPr><w:spacing w:after="80" w:line="276" w:lineRule="auto"/></w:pPr>'+
+          '<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:sz w:val="'+bodySzTwips+'"/><w:szCs w:val="'+bodySzTwips+'"/><w:color w:val="1A1A1A"/></w:rPr>'+
+        '</w:style>'+
+        // Heading 1
+        '<w:style w:type="paragraph" w:styleId="Heading1">'+
+          '<w:name w:val="heading 1"/>'+
+          '<w:basedOn w:val="Normal"/>'+
+          '<w:pPr><w:spacing w:before="320" w:after="160"/><w:keepNext/></w:pPr>'+
+          '<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:b/><w:bCs/><w:sz w:val="'+Math.round(h1Threshold*2)+'"/><w:szCs w:val="'+Math.round(h1Threshold*2)+'"/><w:color w:val="1A1A1A"/></w:rPr>'+
+        '</w:style>'+
+        // Heading 2
+        '<w:style w:type="paragraph" w:styleId="Heading2">'+
+          '<w:name w:val="heading 2"/>'+
+          '<w:basedOn w:val="Normal"/>'+
+          '<w:pPr><w:spacing w:before="200" w:after="100"/><w:keepNext/></w:pPr>'+
+          '<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:b/><w:bCs/><w:sz w:val="'+Math.round(h2Threshold*2)+'"/><w:szCs w:val="'+Math.round(h2Threshold*2)+'"/><w:color w:val="2C2C2C"/></w:rPr>'+
+        '</w:style>'+
+        '</w:styles>');
+
+      wf.file('document.xml',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'+
+        ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'+
+        '<w:body>'+bodyXml+
+        '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr>'+
+        '</w:body></w:document>');
+
+      wf.file('settings.xml',
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
+        '<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'+
+        '<w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat>'+
+        '</w:settings>');
+
       zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}).then(resolve);
     }
     if(window.JSZip){build();}else{var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';s.onload=build;document.head.appendChild(s);}
   });
 }
+// keep old makeDocx as alias (unused but safe)
+function makeDocx(text){return makeDocxRich([{pageNum:1,items:text.split('\n').map(function(s,i){return {str:s,transform:[0,0,0,12,0,i*14],fontName:''};}),height:792,width:612}],1);}
 
 /* ── VIEW / NAV ── */
 function setView(v){
