@@ -22,15 +22,8 @@
   --nav-h:64px;
   --safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px);
   --tr:.17s cubic-bezier(.4,0,.2,1);
-  /* preview-specific */
-  --prev-vid-bg:#000000;
-  --prev-code-bg:#0d0d0d;
-  --prev-code-bar:#111111;
-  --prev-code-bd:#1e1e1e;
-  --prev-code-text:#d4d4d4;
-  --prev-meta:#505050;
-  --prev-audio-wrap:#111111;
 }
+/* ─── LIGHT THEME ─── */
 [data-theme="light"]{
   --bg:#f5f5f5;--bg1:#ffffff;--bg2:#efefef;--bg3:#e6e6e6;--bg4:#d8d8d8;--bg5:#c8c8c8;
   --bd:#e0e0e0;--bdl:#cccccc;
@@ -38,14 +31,8 @@
   --wh:#111111;--blk:#ffffff;
   --hdr-bg:rgba(245,245,245,.94);--nav-bg:rgba(255,255,255,.97);
   --sh:0 4px 24px rgba(0,0,0,.1);--sh2:0 16px 60px rgba(0,0,0,.18);
-  --prev-vid-bg:#1a1a1a;
-  --prev-code-bg:#1e1e2e;
-  --prev-code-bar:#252535;
-  --prev-code-bd:#333348;
-  --prev-code-text:#cdd6f4;
-  --prev-meta:#888899;
-  --prev-audio-wrap:#252535;
 }
+/* ─── MIDNIGHT THEME ─── */
 [data-theme="midnight"]{
   --bg:#0d1117;--bg1:#161b22;--bg2:#1c2128;--bg3:#22272e;--bg4:#2d333b;--bg5:#373e47;
   --bd:#1e2329;--bdl:#2d333b;
@@ -54,14 +41,8 @@
   --hdr-bg:rgba(13,17,23,.94);--nav-bg:rgba(16,21,28,.97);
   --blue:#79c0ff;--green:#56d364;--red:#ff7b72;--yellow:#e3b341;--purple:#d2a8ff;
   --sh:0 4px 24px rgba(0,0,0,.7);--sh2:0 16px 60px rgba(0,0,0,.85);
-  --prev-vid-bg:#010409;
-  --prev-code-bg:#0d1117;
-  --prev-code-bar:#161b22;
-  --prev-code-bd:#1e2329;
-  --prev-code-text:#c9d1d9;
-  --prev-meta:#484f58;
-  --prev-audio-wrap:#161b22;
 }
+/* ─── SEPIA THEME ─── */
 [data-theme="sepia"]{
   --bg:#f4ede3;--bg1:#fdf6ee;--bg2:#ede5d8;--bg3:#e2d9cc;--bg4:#d3c9bb;--bg5:#c2b8aa;
   --bd:#d9cfc2;--bdl:#c8bcad;
@@ -70,14 +51,8 @@
   --hdr-bg:rgba(244,237,227,.94);--nav-bg:rgba(253,246,238,.97);
   --blue:#4a7ab5;--green:#4a8c5c;--red:#c0392b;--yellow:#c47d10;--purple:#7d5ea8;
   --sh:0 4px 24px rgba(61,47,32,.18);--sh2:0 16px 60px rgba(61,47,32,.28);
-  --prev-vid-bg:#1a1008;
-  --prev-code-bg:#2c1e10;
-  --prev-code-bar:#3d2b18;
-  --prev-code-bd:#4e3820;
-  --prev-code-text:#e8d5b7;
-  --prev-meta:#8a6848;
-  --prev-audio-wrap:#3d2b18;
 }
+/* ─── FOREST THEME ─── */
 [data-theme="forest"]{
   --bg:#0b1109;--bg1:#111a0f;--bg2:#172214;--bg3:#1e2d1a;--bg4:#273a22;--bg5:#30472a;
   --bd:#1a2717;--bdl:#283d23;
@@ -86,14 +61,8 @@
   --hdr-bg:rgba(11,17,9,.94);--nav-bg:rgba(14,22,11,.97);
   --blue:#74b9f7;--green:#6ed86e;--red:#ff7b72;--yellow:#f7d948;--purple:#c4a8ff;
   --sh:0 4px 24px rgba(0,0,0,.65);--sh2:0 16px 60px rgba(0,0,0,.8);
-  --prev-vid-bg:#020502;
-  --prev-code-bg:#0b1109;
-  --prev-code-bar:#111a0f;
-  --prev-code-bd:#1a2717;
-  --prev-code-text:#d4e8c8;
-  --prev-meta:#3d6632;
-  --prev-audio-wrap:#111a0f;
 }
+/* ─── AMOLED THEME ─── */
 [data-theme="amoled"]{
   --bg:#000000;--bg1:#000000;--bg2:#0a0a0a;--bg3:#111111;--bg4:#1a1a1a;--bg5:#222222;
   --bd:#141414;--bdl:#1e1e1e;
@@ -101,18 +70,14 @@
   --wh:#ffffff;--blk:#000000;
   --hdr-bg:rgba(0,0,0,.98);--nav-bg:rgba(0,0,0,.99);
   --sh:0 4px 24px rgba(0,0,0,.9);--sh2:0 16px 60px rgba(0,0,0,.95);
-  --prev-vid-bg:#000000;
-  --prev-code-bg:#000000;
-  --prev-code-bar:#0a0a0a;
-  --prev-code-bd:#141414;
-  --prev-code-text:#eeeeee;
-  --prev-meta:#444444;
-  --prev-audio-wrap:#0a0a0a;
 }
 
+/* global transition for theme switch */
 *,*::before,*::after{transition-property:background,background-color,border-color,color,box-shadow,opacity;transition-duration:.22s;transition-timing-function:cubic-bezier(.4,0,.2,1)}
+/* but keep transform-only transitions fast */
 .filecrd,.fcrd,.ncrd,.overlay,.sheet,.upb,#toast,.nav-item,.btn,.ibtn,.bnav-item,.sbf-item,.vtog,.vbtn{transition:all .17s cubic-bezier(.4,0,.2,1)!important}
 
+/* ─── THEME PICKER STYLES ─── */
 .theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:4px}
 @media(max-width:380px){.theme-grid{grid-template-columns:repeat(2,1fr)}}
 .theme-card{border-radius:12px;overflow:hidden;cursor:pointer;border:2.5px solid transparent;transition:all .17s;position:relative}
@@ -125,25 +90,33 @@
 .theme-card.active .theme-check{display:grid}
 .theme-check svg{width:9px;height:9px}
 
+/* quick theme btn in sidebar */
+.sb-theme-btn{display:flex;align-items:center;gap:9px;padding:9px 12px;border-radius:var(--rsm);cursor:pointer;color:var(--t2);font-size:13.5px;font-weight:500;transition:var(--tr);margin:0 8px 6px;border:1px solid var(--bd);background:var(--bg2)}
+.sb-theme-btn:hover{background:var(--bg3);color:var(--t1)}
+.sb-theme-btn svg{width:15px;height:15px;flex-shrink:0}
+.sb-theme-btn .tb-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:1.5px solid var(--bdl)}
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{height:100%;height:-webkit-fill-available}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height:100%;height:-webkit-fill-available;overflow:hidden;-webkit-font-smoothing:antialiased}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;min-height:-webkit-fill-available;overflow:hidden;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:3px;height:3px}::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:99px}::-webkit-scrollbar-track{background:transparent}
 
+/* ─── APP SHELL ─── */
 #app{display:flex;height:100svh;height:100vh;overflow:hidden}
 #sidebar{width:264px;min-width:264px;background:var(--bg1);border-right:1px solid var(--bd);display:flex;flex-direction:column;height:100vh;overflow:hidden;transition:transform var(--tr);z-index:200}
 #main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
 #header{height:58px;background:var(--hdr-bg);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:9px;padding:0 14px;padding-top:var(--safe-top);flex-shrink:0;position:sticky;top:0;z-index:100}
-#content{flex:1;overflow-y:auto;padding:16px 15px calc(var(--nav-h) + var(--safe-bot) + 16px);overscroll-behavior:contain}
+#content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 15px calc(var(--nav-h) + var(--safe-bot) + 16px);overscroll-behavior:contain}
 @media(min-width:721px){#content{padding-bottom:20px}}
 
+/* ─── SIDEBAR PARTS ─── */
 .sb-head{padding:17px 14px 13px;border-bottom:1px solid var(--bd);flex-shrink:0;display:flex;align-items:center;gap:9px}
 .sb-logo{display:flex;align-items:center;gap:9px;cursor:pointer}
 .sb-logo-mark{width:33px;height:33px;background:var(--wh);border-radius:9px;display:grid;place-items:center;flex-shrink:0}
 .sb-logo-mark svg{width:17px;height:17px}
 .sb-logo-name{font-size:17px;font-weight:800;letter-spacing:-.4px;color:var(--wh)}
 .sb-logo-name span{color:var(--t3)}
-.sb-scroll{flex:1;overflow-y:auto;padding:8px 8px 0}
+.sb-scroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 8px 0}
 .sb-section{font-size:10px;font-weight:700;letter-spacing:1.6px;color:var(--t3);text-transform:uppercase;padding:13px 10px 5px}
 .nav-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:var(--rsm);cursor:pointer;color:var(--t2);font-size:14px;font-weight:500;transition:var(--tr)}
 .nav-item:hover{background:var(--bg3);color:var(--t1)}.nav-item.active{background:var(--bg3);color:var(--wh)}
@@ -167,6 +140,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .user-nm{font-size:13px;font-weight:700;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .user-sub{font-size:11px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
+/* ─── HEADER CONTROLS ─── */
 .hamburger{width:37px;height:37px;border-radius:var(--rsm);display:grid;place-items:center;cursor:pointer;border:none;background:transparent;color:var(--t2);transition:var(--tr);flex-shrink:0}
 .hamburger:active{background:var(--bg3)}
 .hamburger svg{width:19px;height:19px}
@@ -188,12 +162,14 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .vbtn{padding:7px 9px;cursor:pointer;border:none;background:transparent;color:var(--t3);transition:var(--tr)}
 .vbtn.active{background:var(--bg4);color:var(--t1)}.vbtn svg{width:14px;height:14px;display:block}
 
+/* ─── CONTENT SECTIONS ─── */
 .guest-banner{background:linear-gradient(135deg,rgba(79,142,247,.1),rgba(167,139,250,.07));border:1px solid rgba(79,142,247,.18);border-radius:var(--r);padding:13px 15px;display:flex;align-items:center;gap:11px;margin-bottom:16px}
 .gb-icon{width:36px;height:36px;border-radius:var(--rsm);background:rgba(79,142,247,.14);display:grid;place-items:center;flex-shrink:0}
 .gb-icon svg{width:17px;height:17px;color:var(--blue)}.gb-txt{flex:1}
 .gb-txt strong{font-size:13px;font-weight:700;display:block;margin-bottom:2px}
 .gb-txt span{font-size:11.5px;color:var(--t2)}
 
+/* welcome bar */
 .welcome-bar{display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:16px}
 .wb-av{width:40px;height:40px;border-radius:50%;overflow:hidden;display:grid;place-items:center;flex-shrink:0;border:2px solid var(--bdl)}
 .wb-av img{width:100%;height:100%;object-fit:cover}
@@ -202,10 +178,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .wb-name{font-size:15px;font-weight:800;letter-spacing:-.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .wb-school{font-size:12px;color:var(--t3);display:flex;align-items:center;gap:4px}
 .wb-school svg{width:11px;height:11px;flex-shrink:0}
-
-/* local storage info chip */
-.local-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:11px;font-weight:600;background:rgba(62,207,142,.08);color:var(--green);border:1px solid rgba(62,207,142,.18);margin-bottom:12px}
-.local-chip svg{width:11px;height:11px}
 
 .upzone{border:1.5px dashed var(--bdl);border-radius:16px;padding:26px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;cursor:pointer;transition:var(--tr);background:var(--bg1);margin-bottom:20px;position:relative;overflow:hidden}
 .upzone::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(79,142,247,.04),rgba(62,207,142,.04));opacity:0;transition:opacity var(--tr)}
@@ -223,16 +195,19 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .view-hdr-title{font-size:10.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--t3);flex:1}
 .view-hdr-count{font-size:11.5px;color:var(--t3)}
 
+/* ─── BREADCRUMB ─── */
 .breadcrumb{display:flex;align-items:center;gap:5px;margin-bottom:12px;font-size:13px;color:var(--t3)}
 .bc-home{cursor:pointer;color:var(--t2);font-weight:600;transition:var(--tr)}.bc-home:active{color:var(--t1)}
 .bc-sep svg{width:12px;height:12px}.bc-cur{color:var(--t1);font-weight:700}
 
+/* ─── FOLDER TABS ─── */
 .folder-tabs{display:flex;gap:4px;margin-bottom:16px;background:var(--bg2);padding:4px;border-radius:var(--rsm);border:1px solid var(--bd)}
 .ftab{flex:1;padding:9px 12px;border-radius:var(--rxs);border:none;background:transparent;color:var(--t2);font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:7px}
 .ftab.active{background:var(--bg4);color:var(--wh)}.ftab svg{width:14px;height:14px}
 .ftab-badge{background:var(--bg5);color:var(--t3);font-size:10px;padding:1px 6px;border-radius:99px;font-weight:700}
 .ftab.active .ftab-badge{background:rgba(255,255,255,.12);color:var(--t1)}
 
+/* ─── FOLDER GRID ─── */
 .fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;margin-bottom:20px}
 @media(max-width:400px){.fgrid{grid-template-columns:repeat(2,1fr)}}
 .fcrd{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:14px 13px;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
@@ -241,6 +216,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .fcrd-cnt{font-size:11.5px;color:var(--t3)}.fcrd-action{position:absolute;top:9px;right:9px;width:26px;height:26px;border-radius:6px;background:rgba(0,0,0,.55);display:grid;place-items:center;opacity:0;transition:var(--tr);border:none;color:var(--t2);cursor:pointer}
 .fcrd:hover .fcrd-action{opacity:1}.fcrd-action svg{width:12px;height:12px}
 
+/* ─── FILE CARDS ─── */
 .files-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px}
 .files-list{display:flex;flex-direction:column;gap:3px}
 @media(max-width:400px){.files-grid{grid-template-columns:repeat(2,1fr)}}
@@ -259,6 +235,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .fli-info{flex:1;overflow:hidden}.fli-nm{font-size:13.5px;font-weight:600;color:var(--t1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.fli-meta{font-size:11px;color:var(--t3)}
 .fli-acts{display:flex;gap:3px;opacity:0;transition:var(--tr)}.fli:hover .fli-acts{opacity:1}
 
+/* ─── NOTES ─── */
 .notes-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .notes-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
 @media(max-width:380px){.notes-grid{grid-template-columns:1fr}}
@@ -279,27 +256,25 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .ncrd-date{font-size:10.5px;color:var(--t3)}
 .ndel{width:22px;height:22px;border-radius:5px;background:rgba(242,95,92,.1);border:none;color:var(--red);cursor:pointer;display:grid;place-items:center;opacity:0;transition:var(--tr)}
 .ncrd:hover .ndel{opacity:1}.ndel svg{width:11px;height:11px}
-/* Note preview accent colors */
-#notePreviewSheet.np-yellow{background:rgba(247,201,72,.04)}
-#notePreviewSheet.np-green{background:rgba(62,207,142,.04)}
-#notePreviewSheet.np-blue{background:rgba(79,142,247,.04)}
-#notePreviewSheet.np-pink{background:rgba(244,114,182,.04)}
-#notePreviewSheet.np-purple{background:rgba(167,139,250,.04)}
 
+/* note color picker */
 .nc-pick{display:flex;gap:7px}.nc-opt{width:24px;height:24px;border-radius:6px;cursor:pointer;border:2.5px solid transparent;transition:var(--tr)}
 .nc-opt.sel{border-color:var(--wh);transform:scale(1.12)}
 .nc-opt.nc-yellow{background:rgba(247,201,72,.3)}.nc-opt.nc-green{background:rgba(62,207,142,.3)}
 .nc-opt.nc-blue{background:rgba(79,142,247,.3)}.nc-opt.nc-pink{background:rgba(244,114,182,.3)}
 .nc-opt.nc-purple{background:rgba(167,139,250,.3)}
 
+/* note textarea */
 .note-ta{width:100%;background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--rsm);padding:12px 14px;color:var(--t1);font-family:'Outfit',sans-serif;font-size:14.5px;outline:none;resize:vertical;min-height:140px;transition:var(--tr);line-height:1.6}
 .note-ta:focus{border-color:var(--bdl)}
 
+/* ─── EMPTY ─── */
 .empty{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:46px 20px;color:var(--t3);text-align:center;grid-column:1/-1}
 .empty-icon{width:60px;height:60px;border-radius:16px;background:var(--bg2);display:grid;place-items:center;margin-bottom:14px}
 .empty-icon svg{width:27px;height:27px;color:var(--t3);opacity:.5}
 .empty h3{font-size:14.5px;font-weight:700;color:var(--t2);margin-bottom:5px}.empty p{font-size:12.5px;color:var(--t3)}
 
+/* ─── UPLOAD PROGRESS ─── */
 .upb{position:fixed;bottom:calc(var(--nav-h) + var(--safe-bot) + 15px);left:50%;transform:translateX(-50%) translateY(10px);background:var(--bg3);border:1px solid var(--bdl);border-radius:var(--r);padding:13px 15px;width:min(320px,calc(100vw - 32px));box-shadow:var(--sh2);z-index:300;opacity:0;pointer-events:none;transition:opacity var(--tr),transform var(--tr)}
 .upb.show{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:all}
 @media(min-width:721px){.upb{bottom:20px}}
@@ -309,6 +284,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .upb-track{height:3px;background:var(--bg5);border-radius:99px;overflow:hidden}
 .upb-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--purple));border-radius:99px;transition:width .3s}
 
+/* ─── BOTTOM NAV ─── */
 #bottomNav{display:none;position:fixed;bottom:0;left:0;right:0;height:calc(var(--nav-h) + var(--safe-bot));background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid var(--bd);padding-bottom:var(--safe-bot);z-index:150}
 .bnav-inner{display:flex;height:var(--nav-h)}
 .bnav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;color:var(--t3);transition:var(--tr);padding:8px 4px;border:none;background:transparent;font-family:'Outfit',sans-serif}
@@ -318,6 +294,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .bnav-upload-btn{width:44px;height:44px;border-radius:50%;background:var(--wh);display:grid;place-items:center;box-shadow:0 4px 18px rgba(255,255,255,.2);transition:var(--tr);border:none;cursor:pointer}
 .bnav-upload-btn:active{transform:scale(.88)}.bnav-upload-btn svg{width:20px;height:20px;color:var(--blk)}
 
+/* ─── OVERLAYS & SHEETS ─── */
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);display:flex;align-items:flex-end;justify-content:center;z-index:400;opacity:0;pointer-events:none;transition:opacity .2s}
 @media(min-width:600px){.overlay{align-items:center}}
 .overlay.open{opacity:1;pointer-events:all}
@@ -329,17 +306,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .sheet-ttl{font-size:18px;font-weight:800;letter-spacing:-.4px}
 .sheet-cls{width:28px;height:28px;border-radius:50%;background:var(--bg4);display:grid;place-items:center;cursor:pointer;border:none;color:var(--t2);transition:var(--tr);flex-shrink:0}
 .sheet-cls:active{background:var(--bg5)}.sheet-cls svg{width:13px;height:13px}
-.sheet-body{overflow-y:auto;padding:0 20px 20px;flex:1}
+.sheet-body{overflow-y:auto;-webkit-overflow-scrolling:touch;padding:0 20px 20px;flex:1}
 .sheet-foot{padding:12px 20px;border-top:1px solid var(--bd);display:flex;gap:8px;flex-shrink:0;padding-bottom:calc(var(--safe-bot) + 12px)}
 
+/* form */
 .fg{margin-bottom:13px}.fl{display:block;font-size:11.5px;font-weight:700;color:var(--t2);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
 .fi{width:100%;background:var(--bg3);border:1.5px solid var(--bd);border-radius:var(--rsm);padding:11px 13px;color:var(--t1);font-family:'Outfit',sans-serif;font-size:15px;outline:none;transition:var(--tr)}
 .fi:focus{border-color:var(--bdl)}.fi::placeholder{color:var(--t4)}
+.fi-err{border-color:rgba(242,95,92,.4)!important}
+.ferr{font-size:11.5px;color:var(--red);margin-top:5px;display:none}
 .cpick{display:flex;gap:8px;flex-wrap:wrap}.copt{width:27px;height:27px;border-radius:7px;cursor:pointer;border:2.5px solid transparent;transition:var(--tr)}.copt.sel{border-color:var(--wh);transform:scale(1.1)}
 .pass-wrap{position:relative}.pass-wrap .fi{padding-right:44px}
 .pass-eye{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:26px;height:26px;display:grid;place-items:center;cursor:pointer;color:var(--t3);transition:var(--tr)}
 .pass-eye:hover{color:var(--t1)}.pass-eye svg{width:15px;height:15px}
 
+/* ─── AUTH TABS ─── */
 .auth-tabs{display:flex;gap:3px;background:var(--bg3);border-radius:var(--rsm);padding:4px;margin-bottom:18px}
 .auth-tab{flex:1;padding:9px;border-radius:var(--rxs);border:none;background:transparent;color:var(--t3);font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;transition:var(--tr);text-align:center}
 .auth-tab.active{background:var(--bg5);color:var(--wh)}
@@ -350,6 +331,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .forgot-link{font-size:12px;color:var(--t2);cursor:pointer;text-align:right;margin-top:4px;display:block;transition:var(--tr)}
 .forgot-link:hover{color:var(--t1)}
 
+/* ─── PROFILE SHEET ─── */
 .prof-hero{display:flex;flex-direction:column;align-items:center;padding:20px 20px 16px;border-bottom:1px solid var(--bd);flex-shrink:0}
 .prof-av-wrap{position:relative;margin-bottom:13px}
 .prof-av{width:72px;height:72px;border-radius:50%;overflow:hidden;display:grid;place-items:center;border:3px solid var(--bdl)}
@@ -362,16 +344,18 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .prof-tabs{display:flex;gap:3px;background:var(--bg3);border-radius:var(--rsm);padding:4px;flex-shrink:0;margin:0 20px 16px}
 .prof-tab{flex:1;padding:8px;border-radius:var(--rxs);border:none;background:transparent;color:var(--t3);font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
 .prof-tab.active{background:var(--bg4);color:var(--wh)}
-.prof-section{padding:0 20px 20px;overflow-y:auto;flex:1}
+.prof-section{padding:0 20px 20px;overflow-y:auto;-webkit-overflow-scrolling:touch;flex:1}
 .prof-signout{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;background:rgba(242,95,92,.08);border:1px solid rgba(242,95,92,.15);border-radius:var(--rsm);cursor:pointer;color:var(--red);font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;transition:var(--tr);margin-top:8px}
 .prof-signout:active{background:rgba(242,95,92,.15)}.prof-signout svg{width:16px;height:16px}
 
+/* ─── COMPLETE PROFILE (new Google user) ─── */
 .cp-hero{text-align:center;padding:20px 20px 16px}
 .cp-icon{width:54px;height:54px;background:var(--wh);border-radius:14px;display:grid;place-items:center;margin:0 auto 14px}
 .cp-icon svg{width:27px;height:27px}
 .cp-ttl{font-size:20px;font-weight:800;letter-spacing:-.4px;margin-bottom:5px}
 .cp-sub{font-size:13px;color:var(--t2);line-height:1.55}
 
+/* ─── CONTEXT MENU ─── */
 #ctxMenu{position:fixed;background:var(--bg3);border:1px solid var(--bdl);border-radius:14px;padding:6px;min-width:170px;box-shadow:var(--sh2);z-index:500;display:none}
 #ctxMenu.open{display:block;animation:ctxin .12s ease}
 @keyframes ctxin{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:none}}
@@ -379,21 +363,26 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .ci:active,.ci:hover{background:var(--bg4);color:var(--t1)}.ci.danger{color:var(--red)}.ci.danger:hover{background:rgba(242,95,92,.1)}
 .ci svg{width:14px;height:14px;flex-shrink:0}.cdivider{height:1px;background:var(--bd);margin:4px 0}
 
+/* ─── TOAST ─── */
 #toast{position:fixed;bottom:calc(var(--nav-h) + var(--safe-bot) + 16px);left:50%;transform:translateX(-50%) translateY(6px);background:var(--bg4);border:1px solid var(--bdl);color:var(--t1);padding:10px 18px;border-radius:99px;font-size:13.5px;font-weight:600;z-index:600;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;box-shadow:var(--sh);max-width:calc(100vw - 32px);text-align:center;font-family:'Outfit',sans-serif}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 @media(min-width:721px){#toast{bottom:24px}}
 
+/* ─── CONVERT ─── */
 .cvt-drop{border:1.5px dashed var(--bdl);border-radius:var(--r);padding:26px;text-align:center;cursor:pointer;transition:var(--tr)}
 .cvt-drop:active{border-color:var(--blue);background:var(--bg3)}
 .cvt-drop svg{width:36px;height:36px;color:var(--t3);margin-bottom:9px}
 .cvt-stat{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rsm);padding:12px 15px;font-size:13.5px;color:var(--t2);display:none;line-height:1.6;margin-top:13px}
 .cvt-stat.show{display:block}.cvt-acts{display:none;gap:9px;margin-top:12px;flex-wrap:wrap}.cvt-acts.show{display:flex}
 
+/* ─── MOVE SHEET ─── */
 .move-item{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:var(--rsm);cursor:pointer;transition:var(--tr);border:1px solid var(--bd);margin-bottom:7px}
 .move-item:active{background:var(--bg3)}
 
+/* ─── SIDEBAR OVERLAY ─── */
 .sb-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:199;display:none;backdrop-filter:blur(2px)}.sb-overlay.show{display:block}
 
+/* ─── RESPONSIVE ─── */
 @media(max-width:720px){
   #sidebar{position:fixed;left:0;top:0;height:100svh;transform:translateX(-100%)}
   #sidebar.open{transform:translateX(0)}
@@ -403,14 +392,16 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 @media(min-width:721px){.hamburger{display:none}}
 @keyframes fup{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}.fi-anim{animation:fup .22s ease both}
 @media(max-width:720px){#content::-webkit-scrollbar{display:none}}
+
+/* move/trash bars */
 .trash-bar{grid-column:1/-1;display:flex;justify-content:flex-end;margin-bottom:8px}
-@keyframes eq{from{transform:scaleY(.3);opacity:.5}to{transform:scaleY(1);opacity:1}}
+.info-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:11.5px;font-weight:600;background:var(--bg3);color:var(--t3);border:1px solid var(--bd);margin-bottom:14px}
+.info-chip svg{width:12px;height:12px}
 </style>
 </head>
 <body>
 <div id="app">
 
-<!-- ══════════════ SIDEBAR ══════════════ -->
 <aside id="sidebar">
   <div class="sb-head">
     <div class="sb-logo" onclick="UV.setView('home')">
@@ -423,23 +414,22 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
     <div class="nav-item active" id="nav-home" onclick="UV.setView('home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home</div>
     <div class="nav-item" id="nav-recent" onclick="UV.setView('recent')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>Recent</div>
     <div class="nav-item" id="nav-convert" onclick="UV.openConvertModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>PDF → Word</div>
-    <div class="nav-item" id="nav-trash" onclick="UV.setView('trash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>Trash</div>
+    <div class="nav-item" id="nav-trash" onclick="UV.setView('trash')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Trash</div>
     <div class="nav-item" onclick="UV.openThemeModal()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 000 20"/><path d="M12 6a6 6 0 010 12"/></svg>Appearance <div id="themeNameBadge" class="nav-badge">Dark</div></div>
     <div class="sb-section">Subjects</div>
     <div class="sb-folders" id="sbFolders"><div style="font-size:12px;color:var(--t3);padding:4px 12px">No folders yet</div></div>
   </div>
   <div class="sb-foot">
-    <div class="sto-wrap"><div class="sto-row"><span>Device Storage</span><span id="storageUsed">0 B <span style="color:var(--t3)">/ 15 GB</span></span></div><div class="sto-bar"><div class="sto-fill" id="storageFill" style="width:0%"></div></div><div id="storageCap" style="font-size:10.5px;color:var(--t3);margin-top:4px;text-align:right">15 GB available</div></div>
+    <div class="sto-wrap"><div class="sto-row"><span>Storage</span><span id="storageUsed">0 MB</span></div><div class="sto-bar"><div class="sto-fill" id="storageFill" style="width:0%"></div></div></div>
     <div class="user-pill" onclick="UV.openProfile()">
       <div class="uav" id="sidebarAv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px;color:var(--t3)"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-      <div style="flex:1;min-width:0"><div class="user-nm" id="sidebarName">Guest User</div><div class="user-sub" id="sidebarSub">Sign in to sync metadata</div></div>
+      <div style="flex:1;min-width:0"><div class="user-nm" id="sidebarName">Guest User</div><div class="user-sub" id="sidebarSub">Sign in to save files</div></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:13px;height:13px;color:var(--t3);flex-shrink:0"><polyline points="9 18 15 12 9 6"/></svg>
     </div>
   </div>
 </aside>
 <div class="sb-overlay" id="sbOv" onclick="UV.closeSidebar()"></div>
 
-<!-- ══════════════ MAIN ══════════════ -->
 <div id="main">
   <header id="header">
     <button class="hamburger" onclick="UV.toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
@@ -455,7 +445,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   <div id="content">
     <div class="guest-banner" id="loginBanner" style="display:none">
       <div class="gb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-      <div class="gb-txt"><strong>Browsing as guest</strong><span>Sign in to sync folder/note metadata across devices</span></div>
+      <div class="gb-txt"><strong>Browsing as guest</strong><span>Sign in to save metadata across devices</span></div>
       <button class="btn btn-g btn-sm" onclick="UV.openLoginModal()">Sign In</button>
     </div>
 
@@ -468,16 +458,10 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
       <button class="ibtn" onclick="UV.openProfile()" title="Edit Profile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
     </div>
 
-    <!-- Local storage indicator -->
-    <div class="local-chip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
-      Files stored on this device · Metadata synced via Firebase
-    </div>
-
     <div class="upzone" id="uploadZone" ondragover="UV.handleDragOver(event)" ondrop="UV.handleDrop(event)" ondragleave="UV.handleDragLeave()" onclick="UV.triggerUpload()">
       <div class="upzone-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div>
       <div class="uzt">Tap to upload files</div>
-      <div class="uzs">Images, videos, PDFs, docs & more<br>Saved directly to your device storage</div>
+      <div class="uzs">Files save securely to this device's local storage</div>
     </div>
     <input type="file" id="fileInput" multiple accept="*/*" onchange="UV.handleFileSelect(event)">
 
@@ -534,7 +518,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 </nav>
 </div>
 
-<div class="upb" id="upb"><div class="upb-hdr"><span class="upb-ttl">Saving to device…</span><span class="upb-pct" id="upbPct">0%</span></div><div class="upb-file" id="upbFile"></div><div class="upb-track"><div class="upb-fill" id="upbFill" style="width:0%"></div></div></div>
+<div class="upb" id="upb"><div class="upb-hdr"><span class="upb-ttl">Saving Locally…</span><span class="upb-pct" id="upbPct">0%</span></div><div class="upb-file" id="upbFile"></div><div class="upb-track"><div class="upb-fill" id="upbFill" style="width:0%"></div></div></div>
 <div id="toast"></div>
 
 <div id="ctxMenu">
@@ -545,9 +529,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   <div class="ci danger" onclick="UV.ctxDo('delete')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Move to Trash</div>
 </div>
 
-<!-- ══════════════════════════ SHEETS / MODALS ══════════════════════════ -->
-
-<!-- AUTH SHEET -->
 <div class="overlay" id="loginModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -559,6 +540,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
         Continue with Google
       </button>
       <div class="or-sep">or</div>
+
       <div id="authLoginForm">
         <div class="fg"><label class="fl">Email</label><input class="fi" type="email" id="liEmail" placeholder="your@email.com"></div>
         <div class="fg">
@@ -570,6 +552,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
         <button class="btn btn-p" style="width:100%;justify-content:center;padding:13px" onclick="UV.loginEmail()">Sign In</button>
         <div style="text-align:center;margin-top:13px;font-size:12.5px;color:var(--t3)">No account? <span style="color:var(--t1);cursor:pointer;font-weight:600" onclick="UV.setAuthTab('register')">Create one free</span></div>
       </div>
+
       <div id="authRegisterForm" style="display:none">
         <div class="fg"><label class="fl">Full Name</label><input class="fi" type="text" id="regName" placeholder="Juan Dela Cruz"></div>
         <div class="fg"><label class="fl">School / University</label><input class="fi" type="text" id="regSchool" placeholder="e.g. University of the Philippines"></div>
@@ -590,7 +573,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- COMPLETE PROFILE -->
 <div class="overlay" id="completeProfileModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -609,14 +591,11 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- PROFILE SHEET -->
 <div class="overlay" id="profileModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="prof-hero">
-      <div class="prof-av-wrap">
-        <div class="prof-av" id="profAv"><div class="prof-av-init" id="profInit">?</div></div>
-      </div>
+      <div class="prof-av-wrap"><div class="prof-av" id="profAv"><div class="prof-av-init" id="profInit">?</div></div></div>
       <div class="prof-name" id="profName">Loading…</div>
       <div class="prof-school" id="profSchool"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg><span id="profSchoolTxt">School</span></div>
       <div class="prof-email" id="profEmail">email</div>
@@ -626,7 +605,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- NEW FOLDER -->
 <div class="overlay" id="newFolderModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -640,7 +618,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- EDIT FOLDER -->
 <div class="overlay" id="editFolderModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -654,7 +631,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- NOTE MODAL -->
 <div class="overlay" id="noteModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -673,46 +649,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- CONFIRM DIALOG -->
-<div class="overlay" id="confirmModal" style="z-index:9999">
-  <div class="sheet" style="max-width:400px;margin:0 auto">
-    <div class="sheet-handle"></div>
-    <div style="padding:24px 22px 6px;text-align:center">
-      <div id="confirmIcon" style="width:52px;height:52px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center"></div>
-      <div id="confirmTitle" style="font-size:17px;font-weight:800;color:var(--t1);margin-bottom:8px;letter-spacing:-.3px"></div>
-      <div id="confirmMsg" style="font-size:13.5px;color:var(--t2);line-height:1.6"></div>
-    </div>
-    <div class="sheet-foot" style="gap:10px;padding:20px">
-      <button class="btn btn-g" style="flex:1;justify-content:center;padding:13px" onclick="UV.confirmCancel()">Cancel</button>
-      <button class="btn btn-d" id="confirmOkBtn" style="flex:1;justify-content:center;padding:13px" onclick="UV.confirmOk()">Delete</button>
-    </div>
-  </div>
-</div>
-
-<!-- NOTE PREVIEW -->
-<div class="overlay" id="notePreviewModal">
-  <div class="sheet sheet-lg" id="notePreviewSheet" style="display:flex;flex-direction:column;max-height:92vh">
-    <div class="sheet-handle"></div>
-    <div class="sheet-hdr" id="notePreviewHdr">
-      <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
-        <div id="notePreviewDot" style="width:10px;height:10px;border-radius:50%;flex-shrink:0"></div>
-        <div class="sheet-ttl" id="notePreviewTitle" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Note</div>
-      </div>
-      <button class="sheet-cls" onclick="UV.closeModal('notePreviewModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-    </div>
-    <div id="notePreviewMeta" style="padding:0 20px 10px;font-size:11px;color:var(--t3)"></div>
-    <div id="notePreviewBar" style="height:2px;margin:0 20px 14px;border-radius:2px"></div>
-    <div id="notePreviewBody" style="flex:1;overflow-y:auto;padding:0 20px 20px;font-size:15px;line-height:1.75;color:var(--t1);white-space:pre-wrap;word-break:break-word;min-height:0"></div>
-    <div class="sheet-foot" id="notePreviewFoot">
-      <button class="btn btn-d btn-sm" id="npDelBtn" onclick="UV.deletePreviewNote()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Delete</button>
-      <div style="flex:1"></div>
-      <button class="btn btn-g" onclick="UV.closeModal('notePreviewModal')">Close</button>
-      <button class="btn btn-p" id="npEditBtn" onclick="UV.editFromPreview()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</button>
-    </div>
-  </div>
-</div>
-
-<!-- MOVE -->
 <div class="overlay" id="moveModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -722,7 +658,6 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- CONVERT -->
 <div class="overlay" id="convertModal">
   <div class="sheet sheet-lg">
     <div class="sheet-handle"></div>
@@ -743,15 +678,14 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- PREVIEW -->
 <div class="overlay" id="previewModal">
-  <div class="sheet sheet-xl" style="display:flex;flex-direction:column;border-radius:22px 22px 0 0">
+  <div class="sheet" style="display:flex;flex-direction:column;border-radius:22px 22px 0 0; height:96svh; max-height:96svh; max-width:1000px; width:100%;">
     <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;padding-top:calc(var(--safe-top) + 14px);border-bottom:1px solid var(--bd);flex-shrink:0;background:var(--bg2)">
       <button class="sheet-cls" onclick="UV.closeModal('previewModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
       <div style="flex:1;font-size:13.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" id="prevTitle">Preview</div>
       <button class="ibtn" onclick="UV.downloadCurrent()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
     </div>
-    <div style="flex:1;display:flex;align-items:center;justify-content:center;overflow:auto;background:var(--bg);min-height:240px" id="prevBody"></div>
+    <div style="flex:1;position:relative;overflow:hidden;background:var(--bg);min-height:240px" id="prevBody"></div>
     <div style="padding:12px 16px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg2)">
       <div style="font-size:11.5px;color:var(--t3)" id="prevInfo"></div>
       <div style="display:flex;gap:8px">
@@ -762,7 +696,21 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- THEME MODAL -->
+<div class="overlay" id="notePreviewModal">
+  <div class="sheet" style="display:flex;flex-direction:column;border-radius:22px 22px 0 0; height:96svh; max-height:96svh; max-width:800px; width:100%;">
+    <div style="display:flex;align-items:center;gap:10px;padding:14px 16px;padding-top:calc(var(--safe-top) + 14px);border-bottom:1px solid var(--bd);flex-shrink:0;background:var(--bg2)">
+      <button class="sheet-cls" onclick="UV.closeModal('notePreviewModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <div style="flex:1;font-size:15.5px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--t1)" id="notePrevTitle"></div>
+      <button class="ibtn" id="notePrevEditBtn" title="Edit Note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+    </div>
+    <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:24px;background:var(--bg);color:var(--t1);font-size:16px;line-height:1.6;white-space:pre-wrap;word-break:break-word" id="notePrevContent"></div>
+    <div style="padding:12px 16px;border-top:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--bg2)">
+      <div style="font-size:11.5px;color:var(--t3)" id="notePrevDate"></div>
+      <button class="btn btn-d btn-sm" id="notePrevDelBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Delete</button>
+    </div>
+  </div>
+</div>
+
 <div class="overlay" id="themeModal">
   <div class="sheet">
     <div class="sheet-handle"></div>
@@ -774,104 +722,71 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
-<!-- ═══════════════════════════════════ SCRIPT ═══════════════════════════════════ -->
 <script>
 (function(){
 'use strict';
-
 /* ── CONSTANTS ── */
 var FCOLORS=['#4f8ef7','#3ecf8e','#f25f5c','#f7c948','#a78bfa','#f472b6','#38bdf8','#f97316','#ffffff','#777777','#444444','#181818'];
 var NOTE_COLORS=['yellow','green','blue','pink','purple'];
-var FB_CFG={apiKey:"AIzaSyCMXkfTB4T4U6Kepnoh4kT7dtDShmYHbtk",authDomain:"unour-e84f8.firebaseapp.com",databaseURL:"https://unour-e84f8-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"unour-e84f8",storageBucket:"unour-e84f8.firebasestorage.app",messagingSenderId:"844798271413",appId:"1:844798271413:web:6050cc9343a0d51ab143fc"};
-var IDB_NAME='univault_files', IDB_STORE='blobs', IDB_VER=1;
+var FB_CFG={apiKey:"AIzaSyCMXkfTB4T4U6Kepnoh4kT7dtDShmYHbtk",authDomain:"unour-e84f8.firebaseapp.com",databaseURL:"https://unour-e84f8-default-rtdb.asia-southeast1.firebasedatabase.app",projectId:"unour-e84f8",messagingSenderId:"844798271413",appId:"1:844798271413:web:6050cc9343a0d51ab143fc"};
 
 /* ── STATE ── */
 var cUser=null, cView='home', cFolder=null, cTab='files', fView='grid';
 var aFiles={}, aFolders={}, aNotes={}, userProfile={};
 var ctxId=null, editFId=null, editNoteId=null, selColor='#4f8ef7', selNoteColor='yellow';
-var cvtBlob=null, cvtName='', prevId=null, profTab='info', authTabMode='login';
+var cvtBlob=null, cvtName='', prevId=null, curNotePrevId=null, profTab='info', authTabMode='login';
+var currentDocZoom = 1; // Stores the current zoom level for docs/text files
 var FB={ready:false,auth:null,db:null,mAuth:null,mDb:null};
-// IndexedDB handle
-var idb=null;
+var localBlobCache = {};
 
-/* ══════════════════════════════════════
-   INDEXEDDB — LOCAL FILE STORAGE
-   Files are stored as Blobs keyed by a
-   unique fileId (same id used in Firebase
-   metadata). Firebase never touches the
-   actual file bytes.
-══════════════════════════════════════ */
-function openIDB(){
-  return new Promise(function(resolve,reject){
-    if(idb){resolve(idb);return;}
-    var req=indexedDB.open(IDB_NAME,IDB_VER);
-    req.onupgradeneeded=function(e){e.target.result.createObjectStore(IDB_STORE,{keyPath:'id'});};
-    req.onsuccess=function(e){idb=e.target.result;resolve(idb);};
-    req.onerror=function(){reject(req.error);};
-  });
-}
-function idbSave(id,fileOrBlob,explicitMime){
-  return openIDB().then(function(db){
-    return new Promise(function(resolve,reject){
-      var mime=explicitMime||(fileOrBlob.type&&fileOrBlob.type!==''?fileOrBlob.type:'application/octet-stream');
-      var tx=db.transaction(IDB_STORE,'readwrite');
-      // Store blob as-is (no copy) + save mime separately to survive retrieval type loss
-      tx.objectStore(IDB_STORE).put({id:id,blob:fileOrBlob,mime:mime});
-      tx.oncomplete=resolve;tx.onerror=function(){reject(tx.error);};
-    });
-  });
-}
-function idbGet(id){
-  return openIDB().then(function(db){
-    return new Promise(function(resolve,reject){
-      var tx=db.transaction(IDB_STORE,'readonly');
-      var req=tx.objectStore(IDB_STORE).get(id);
-      req.onsuccess=function(){
-        if(!req.result){resolve(null);return;}
-        var stored=req.result;
-        var blob=stored.blob;
-        if(!blob){resolve(null);return;}
-        // Attach mime to blob if it lost its type (some browsers strip type on retrieval)
-        var mime=stored.mime||blob.type||'';
-        if(!blob.type||blob.type===''||blob.type==='application/octet-stream'){
-          // Re-wrap only if needed and only for small blobs to avoid OOM on large files
-          if(mime&&mime!=='application/octet-stream'&&blob.size<50*1024*1024){
-            resolve(new Blob([blob],{type:mime}));
-          } else {
-            // For large files, attach mime as a property so preview can use it
-            blob._forceMime=mime;
-            resolve(blob);
-          }
-        } else {
-          resolve(blob);
+/* ── LOCAL STORAGE ENGINE (IndexedDB) ── */
+var IDB = (function(){
+  var dbName = "UniVaultDB", storeName = "files", version = 1, db;
+  function init(){
+    return new Promise(function(resolve, reject){
+      if(db) return resolve(db);
+      var req = indexedDB.open(dbName, version);
+      req.onupgradeneeded = function(e){
+        var d = e.target.result;
+        if(!d.objectStoreNames.contains(storeName)){
+          d.createObjectStore(storeName);
         }
       };
-      req.onerror=function(){reject(req.error);};
+      req.onsuccess = function(e){ db = e.target.result; resolve(db); };
+      req.onerror = function(){ reject('IDB error'); };
     });
-  });
-}
-function idbDelete(id){
-  return openIDB().then(function(db){
-    return new Promise(function(resolve,reject){
-      var tx=db.transaction(IDB_STORE,'readwrite');
-      tx.objectStore(IDB_STORE).delete(id);
-      tx.oncomplete=resolve;tx.onerror=function(){reject(tx.error);};
-    });
-  });
-}
-function idbTotalSize(){
-  return openIDB().then(function(db){
-    return new Promise(function(resolve){
-      var tx=db.transaction(IDB_STORE,'readonly');
-      var total=0;
-      tx.objectStore(IDB_STORE).openCursor().onsuccess=function(e){
-        var cur=e.target.result;
-        if(cur){total+=cur.value.blob?cur.value.blob.size:0;cur.continue();}
-        else resolve(total);
-      };
-    });
-  });
-}
+  }
+  return {
+    save: function(id, blob){
+      return init().then(function(d){
+        return new Promise(function(res, rej){
+          var tx = d.transaction(storeName, 'readwrite');
+          var req = tx.objectStore(storeName).put(blob, id);
+          req.onsuccess = res; req.onerror = rej;
+        });
+      });
+    },
+    get: function(id){
+      return init().then(function(d){
+        return new Promise(function(res, rej){
+          var tx = d.transaction(storeName, 'readonly');
+          var req = tx.objectStore(storeName).get(id);
+          req.onsuccess = function(){ res(req.result); };
+          req.onerror = rej;
+        });
+      });
+    },
+    del: function(id){
+      return init().then(function(d){
+        return new Promise(function(res, rej){
+          var tx = d.transaction(storeName, 'readwrite');
+          var req = tx.objectStore(storeName).delete(id);
+          req.onsuccess = res; req.onerror = rej;
+        });
+      });
+    }
+  };
+})();
 
 /* ── THEME SYSTEM ── */
 var THEMES={
@@ -899,7 +814,8 @@ function loadTheme(){
 function renderThemeGrid(){
   var el=g('themeGrid');if(!el)return;
   el.innerHTML=Object.keys(THEMES).map(function(key){
-    var t=THEMES[key];var active=key===curTheme;
+    var t=THEMES[key];
+    var active=key===curTheme;
     return '<div class="theme-card'+(active?' active':'')+'" onclick="UV.applyTheme(\''+key+'\')" style="background:'+t.bg+';border-color:'+(active?t.accent:'transparent')+'">'
       +'<div class="theme-preview">'
       +'<div class="tp-bar" style="background:'+t.bg2+';height:28px"></div>'
@@ -910,7 +826,9 @@ function renderThemeGrid(){
       +t.label
       +'<div class="theme-check" style="background:'+t.accent+';'+(active?'display:grid':'display:none')+'">'
       +'<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>'
-      +'</div></div></div>';
+      +'</div>'
+      +'</div>'
+      +'</div>';
   }).join('');
 }
 function openThemeModal(){renderThemeGrid();openModal('themeModal');closeSidebar();}
@@ -924,11 +842,45 @@ function toast(msg,dur){var t=g('toast');t.textContent=msg;t.classList.add('show
 function getInitials(name){if(!name)return '?';return name.trim().split(/\s+/).map(function(w){return w[0];}).join('').toUpperCase().slice(0,2);}
 function getAvatarColor(name){var c=['#4f8ef7','#3ecf8e','#f25f5c','#f7c948','#a78bfa','#f472b6','#38bdf8','#f97316'];var s=(name||'').split('').reduce(function(a,ch){return a+ch.charCodeAt(0);},0);return c[s%c.length];}
 function openModal(id){g(id).classList.add('open');}
-function closeModal(id){g(id).classList.remove('open');}
+
+function closeModal(id){
+  var el = g(id);
+  if(!el) return;
+  el.classList.remove('open');
+  
+  // Automatically pause video/audio when closing modal
+  var media = el.querySelectorAll('video, audio');
+  for(var i = 0; i < media.length; i++) media[i].pause();
+  
+  // Clear preview completely after transition
+  if(id === 'previewModal') {
+    setTimeout(function(){ 
+      if(!el.classList.contains('open')) g('prevBody').innerHTML = ''; 
+    }, 250);
+  }
+}
+
 function openLoginModal(){openModal('loginModal');}
 function togglePass(inputId,el){var inp=g(inputId);inp.type=inp.type==='password'?'text':'password';el.style.color=inp.type==='text'?'var(--t1)':'var(--t3)';}
+function getLocalURL(localId, cb){
+  if(!localId) return cb(null);
+  if(localBlobCache[localId]) return cb(localBlobCache[localId]);
+  IDB.get(localId).then(function(blob){
+    if(!blob) return cb(null);
+    var url = URL.createObjectURL(blob);
+    localBlobCache[localId] = url;
+    cb(url);
+  }).catch(function(){ cb(null); });
+}
+function changeDocZoom(step){
+  currentDocZoom += step;
+  if(currentDocZoom < 0.1) currentDocZoom = 0.1; 
+  if(currentDocZoom > 4.0) currentDocZoom = 4.0;
+  var el = document.getElementById('docx-content');
+  if(el) el.style.zoom = currentDocZoom;
+}
 
-/* ── FIREBASE BOOTSTRAP (Auth + Realtime DB only — NO Storage) ── */
+/* ── FIREBASE BOOTSTRAP ── */
 var _fbCount=0;window._uvMod={};
 window._uvReady=function(name,mod){window._uvMod[name]=mod;_fbCount++;if(_fbCount===3)_uvInit();};
 function _uvInit(){
@@ -945,9 +897,8 @@ function _uvInit(){
         closeModal('loginModal');
         ensureProfile(user);
       } else {
-        aFolders={};aNotes={};
-        // Keep aFiles from IDB (local), just clear rendered list and re-render
-        loadLocalFiles();
+        aFiles={};aFolders={};aNotes={};userProfile={};
+        renderAll();
         g('loginBanner').style.display='flex';
         g('welcomeBar').style.display='none';
       }
@@ -956,23 +907,11 @@ function _uvInit(){
   }catch(e){toast('Firebase error: '+e.message);}
 }
 var VER='10.12.2',BASE='https://www.gstatic.com/firebasejs/'+VER+'/';
-// Only load app, auth, database — NOT storage
 [['app','firebase-app'],['auth','firebase-auth'],['db','firebase-database']].forEach(function(pair){
   var s=document.createElement('script');s.type='module';
   s.textContent='import * as m from "'+BASE+pair[1]+'.js"; window._uvReady("'+pair[0]+'", m);';
   document.head.appendChild(s);
 });
-
-/* ── LOCAL FILES: load from IndexedDB metadata stored in localStorage ── */
-// We store file *metadata* in localStorage keyed by user-scoped key,
-// and the actual blob in IndexedDB. This means files work offline and
-// are never uploaded to Firebase Storage.
-function localMetaKey(){return 'uv_files_'+(cUser?cUser.uid:'guest');}
-function saveLocalMeta(){try{localStorage.setItem(localMetaKey(),JSON.stringify(aFiles));}catch(e){toast('Storage full — cannot save metadata');}}
-function loadLocalFiles(){
-  try{var raw=localStorage.getItem(localMetaKey());aFiles=raw?JSON.parse(raw):{};}catch(e){aFiles={};}
-  renderFilesSection();updateSto();
-}
 
 /* ── AUTH ── */
 function setAuthTab(tab){
@@ -1058,18 +997,25 @@ function saveCompleteProfile(){
   toast('Profile saved! Welcome, '+name+' 🎉');
   updateUserUI();
 }
+function handleUserClick(){
+  if(cUser)openProfile();
+  else openLoginModal();
+}
 
 /* ── USER UI ── */
 function updateUserUI(){
   var name=(userProfile&&userProfile.fullName)||(cUser&&cUser.displayName)||'Guest User';
   var school=(userProfile&&userProfile.school)||'';
-  var sub=school||(cUser?cUser.email:'Sign in to sync metadata');
+  var sub=school||(cUser?cUser.email:'Sign in to save metadata');
   var photoURL=cUser&&cUser.photoURL;
   var initials=getInitials(name);
   var avColor=getAvatarColor(name);
 
-  if(photoURL){g('sidebarAv').innerHTML='<img src="'+photoURL+'" alt="">';}
-  else{g('sidebarAv').innerHTML='<div class="uav-init" style="background:'+avColor+';color:#fff;width:100%;height:100%">'+initials+'</div>';}
+  if(photoURL){
+    g('sidebarAv').innerHTML='<img src="'+photoURL+'" alt="">';
+  } else {
+    g('sidebarAv').innerHTML='<div class="uav-init" style="background:'+avColor+';color:#fff;width:100%;height:100%">'+initials+'</div>';
+  }
   g('sidebarName').textContent=name;
   g('sidebarSub').textContent=sub||'UniVault';
 
@@ -1189,319 +1135,69 @@ function changePassword(){
   });
 }
 function signOut(){
-  showConfirm({
-    title:'Sign Out',msg:'You will be signed out of your account.',ok:'Sign Out',danger:false,
-    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" style="width:26px;height:26px"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>'
-  },function(){
-    FB.mAuth.signOut(FB.auth).then(function(){toast('Signed out');closeModal('profileModal');});
-  });
+  if(!confirm('Sign out?'))return;
+  FB.mAuth.signOut(FB.auth).then(function(){toast('Signed out');closeModal('profileModal');});
 }
 
-/* ── DATABASE (Firebase — folders & notes only) ── */
+/* ── DATABASE ── */
 function uid(){return cUser&&cUser.uid;}
 function loadData(){
   if(!cUser||!FB.ready)return;var u=uid();
-  // Load local file metadata for this user
-  loadLocalFiles();
-  // Subscribe to folders and notes from Firebase Realtime DB
   FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/profile'),function(s){userProfile=s.val()||{};updateUserUI();});
   FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/folders'),function(s){aFolders=s.val()||{};renderSbFolders();renderFolderCards();updateTabBadges();});
-  FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/notes'),function(s){
-    var wasTempPrev=prevNoteId&&prevNoteId.indexOf('tmp_')===0;
-    aNotes=s.val()||{};
-    renderNotesSection();updateTabBadges();
-    // If preview was showing a temp note, find the real one and update preview
-    if(wasTempPrev){
-      var allNotes=Object.entries(aNotes);
-      if(allNotes.length){
-        var newest=allNotes.sort(function(a,b){return (b[1].createdAt||0)-(a[1].createdAt||0);})[0];
-        if(newest&&g('notePreviewModal')&&g('notePreviewModal').classList.contains('open')){
-          prevNoteId=newest[0];
-          previewNote(newest[0]);
-        }
-      }
-    }
-  });
+  FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/files'),function(s){aFiles=s.val()||{};renderFilesSection();updateTabBadges();updateSto();});
+  FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/notes'),function(s){aNotes=s.val()||{};renderNotesSection();updateTabBadges();});
 }
 function dbPF(n,c,sub){if(!FB.ready||!cUser)return;var r=FB.mDb.push(FB.mDb.ref(FB.db,'users/'+uid()+'/folders'));FB.mDb.set(r,{name:n,color:c,subject:sub||'',createdAt:Date.now()});}
 function dbUF(id,d){if(!FB.ready||!cUser)return;FB.mDb.update(FB.mDb.ref(FB.db,'users/'+uid()+'/folders/'+id),d);}
-function dbDF(id){
+function dbDF(id){if(!FB.ready||!cUser)return;Object.entries(aFiles).forEach(function(e){if(e[1].folderId===id)FB.mDb.update(FB.mDb.ref(FB.db,'users/'+uid()+'/files/'+e[0]),{folderId:null});});Object.entries(aNotes).forEach(function(e){if(e[1].folderId===id)FB.mDb.remove(FB.mDb.ref(FB.db,'users/'+uid()+'/notes/'+e[0]));});FB.mDb.remove(FB.mDb.ref(FB.db,'users/'+uid()+'/folders/'+id));}
+function dbPFile(d){if(!FB.ready||!cUser)return;var r=FB.mDb.push(FB.mDb.ref(FB.db,'users/'+uid()+'/files'));FB.mDb.set(r,Object.assign({},d,{createdAt:Date.now(),deleted:false}));}
+function dbUFile(id,d){if(!FB.ready||!cUser)return;FB.mDb.update(FB.mDb.ref(FB.db,'users/'+uid()+'/files/'+id),d);}
+function dbDFile(id, localId){
   if(!FB.ready||!cUser)return;
-  // Unlink files from this folder in local metadata
-  Object.keys(aFiles).forEach(function(fid){if(aFiles[fid].folderId===id){aFiles[fid].folderId=null;}});
-  saveLocalMeta();
-  // Delete notes in this folder from Firebase
-  Object.entries(aNotes).forEach(function(e){if(e[1].folderId===id)FB.mDb.remove(FB.mDb.ref(FB.db,'users/'+uid()+'/notes/'+e[0]));});
-  FB.mDb.remove(FB.mDb.ref(FB.db,'users/'+uid()+'/folders/'+id));
+  if(localId) IDB.del(localId);
+  FB.mDb.remove(FB.mDb.ref(FB.db,'users/'+uid()+'/files/'+id));
 }
-// Notes DB (Firebase)
 function dbAddNote(d){if(!FB.ready||!cUser)return;var r=FB.mDb.push(FB.mDb.ref(FB.db,'users/'+uid()+'/notes'));FB.mDb.set(r,Object.assign({},d,{createdAt:Date.now(),updatedAt:Date.now()}));}
 function dbUpdateNote(id,d){if(!FB.ready||!cUser)return;FB.mDb.update(FB.mDb.ref(FB.db,'users/'+uid()+'/notes/'+id),Object.assign({},d,{updatedAt:Date.now()}));}
 function dbDeleteNote(id){if(!FB.ready||!cUser)return;FB.mDb.remove(FB.mDb.ref(FB.db,'users/'+uid()+'/notes/'+id));}
 
-/* ══════════════════════════════════════
-   FILE METADATA — stored locally
-   Actual blob bytes stored in IndexedDB
-══════════════════════════════════════ */
-function localAddFile(meta){
-  // meta has: id, name, type, ext, size, folderId, createdAt, deleted
-  aFiles[meta.id]=meta;
-  saveLocalMeta();
-}
-function localUpdateFile(id,patch){
-  if(!aFiles[id])return;
-  Object.assign(aFiles[id],patch);
-  saveLocalMeta();
-}
-function localDeleteFile(id){
-  // Remove blob from IDB and return promise
-  var p=idbDelete(id).catch(function(){});
-  delete aFiles[id];
-  saveLocalMeta();
-  return p;
-}
-
-/* ── UPLOAD — saves to IndexedDB, metadata to localStorage ── */
-function triggerUpload(){g('fileInput').click();}
+/* ── UPLOAD (Local DB) ── */
+function triggerUpload(){if(!cUser){openLoginModal();return;}g('fileInput').click();}
 function handleFileSelect(e){Array.from(e.target.files).forEach(uploadFile);e.target.value='';}
 function handleDragOver(e){e.preventDefault();g('uploadZone').classList.add('drag');}
 function handleDragLeave(){g('uploadZone').classList.remove('drag');}
-function handleDrop(e){e.preventDefault();g('uploadZone').classList.remove('drag');Array.from(e.dataTransfer.files).forEach(uploadFile);}
-
+function handleDrop(e){e.preventDefault();g('uploadZone').classList.remove('drag');if(!cUser){openLoginModal();return;}Array.from(e.dataTransfer.files).forEach(uploadFile);}
 function uploadFile(file){
+  if(!cUser){openLoginModal();return;}if(!FB.ready){toast('Not ready yet');return;}
   var ext=(file.name.split('.').pop()||'').toLowerCase();
-  var fileId='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
-  var correctMime=file.type&&file.type!==''&&file.type!=='application/octet-stream'?file.type:extT(ext);
-
-  // Check storage cap before saving
-  var usedSize=Object.values(aFiles).reduce(function(a,f){return a+(f.size||0);},0);
-  if(usedSize+file.size>STORAGE_CAP){
-    var remaining=Math.max(STORAGE_CAP-usedSize,0);
-    toast('❌ Not enough space! '+sz(remaining)+' left, file is '+sz(file.size));
-    return;
-  }
-  var meta={
-    id:fileId,
-    name:file.name,
-    type:correctMime,
-    ext:ext,
-    size:file.size,
-    folderId:cFolder||null,
-    createdAt:Date.now(),
-    deleted:false
-  };
+  var localId = Date.now() + '_' + Math.random().toString(36).substr(2,9);
 
   g('upbFile').textContent=file.name;
+  g('upbPct').textContent='Saving...';
+  g('upbFill').style.width='50%';
   g('upb').classList.add('show');
-  g('upbFill').style.width='0%';
-  g('upbPct').textContent='0%';
 
-  // Simulate progress while reading
-  var prog=0;
-  var progInt=setInterval(function(){
-    prog=Math.min(prog+10,85);
-    g('upbFill').style.width=prog+'%';
-    g('upbPct').textContent=prog+'%';
-  },80);
-
-  idbSave(fileId,file,correctMime).then(function(){
-    clearInterval(progInt);
-    g('upbFill').style.width='100%';
+  IDB.save(localId, file).then(function(){
     g('upbPct').textContent='100%';
-    localAddFile(meta);
-    renderFilesSection();
-    updateSto();
-    setTimeout(function(){g('upb').classList.remove('show');},700);
-    toast('"'+file.name+'" saved to device!');
-  }).catch(function(err){
-    clearInterval(progInt);
-    g('upb').classList.remove('show');
-    toast('Save failed: '+err.message);
-  });
-}
+    g('upbFill').style.width='100%';
+    setTimeout(function(){ g('upb').classList.remove('show'); }, 500);
 
-function extT(e){return({pdf:'application/pdf',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',gif:'image/gif',webp:'image/webp',svg:'image/svg+xml',mp4:'video/mp4',webm:'video/webm',mov:'video/mp4',m4v:'video/mp4',avi:'video/x-msvideo',mkv:'video/x-matroska','3gp':'video/3gpp',ogv:'video/ogg',mp3:'audio/mpeg',wav:'audio/wav',ogg:'audio/ogg',aac:'audio/aac',flac:'audio/flac',m4a:'audio/mp4',opus:'audio/opus',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',zip:'application/zip',txt:'text/plain',md:'text/markdown',json:'application/json',xml:'application/xml',js:'text/javascript',ts:'text/typescript',py:'text/x-python',sh:'text/x-sh'})[e]||'application/octet-stream';}
-
-/* ── DOWNLOAD — retrieve blob from IndexedDB ── */
-function downloadFile(id){
-  var f=aFiles[id];if(!f){toast('File not found');return;}
-  idbGet(f.id).then(function(blob){
-    if(!blob){toast('File data missing from device');return;}
-    var url=URL.createObjectURL(blob);
-    var a=document.createElement('a');a.href=url;a.download=f.name;a.click();
-    setTimeout(function(){URL.revokeObjectURL(url);},2000);
-    toast('Downloading…');
-  }).catch(function(){toast('Could not retrieve file');});
-}
-
-/* ── PREVIEW — create object URL from IndexedDB blob ── */
-function previewFile(id){
-  var f=aFiles[id];if(!f)return;prevId=id;
-  g('prevTitle').textContent=f.name;
-  g('prevInfo').textContent=sz(f.size)+' · '+ago(f.createdAt)+' · On device';
-  var body=g('prevBody'),ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase(),type=f.type||'';
-  body.innerHTML='<div style="padding:20px;color:var(--t3);font-size:13px;text-align:center">Loading…</div>';
-  openModal('previewModal');
-
-  idbGet(f.id).then(function(blob){
-    if(!blob){body.innerHTML='<div style="padding:30px;text-align:center;color:var(--t3)"><p>File not found on this device.</p></div>';return;}
-    var url=URL.createObjectURL(blob);
-    var prevModal=g('previewModal');
-    // revoke any previous URL
-    if(prevModal._objUrl){URL.revokeObjectURL(prevModal._objUrl);}
-    prevModal._objUrl=url;
-
-    if(type.indexOf('image/')===0||['jpg','jpeg','png','gif','webp','svg','bmp','avif'].indexOf(ext)!==-1){
-      body.innerHTML='<img src="'+url+'" alt="'+esc(f.name)+'" style="max-width:100%;max-height:72vh;object-fit:contain;display:block">';
-
-    } else if(type.indexOf('video/')===0||['mp4','webm','mov','avi','mkv','m4v','3gp','ogv'].indexOf(ext)!==-1){
-      // Determine correct MIME — prefer stored blob.type, then _forceMime, fallback to ext map
-      var vMime=(blob.type&&blob.type!==''&&blob.type!=='application/octet-stream')
-        ?blob.type
-        :(blob._forceMime||({mp4:'video/mp4',webm:'video/webm',mov:'video/mp4',m4v:'video/mp4',avi:'video/x-msvideo',mkv:'video/x-matroska','3gp':'video/3gpp',ogv:'video/ogg'}[ext])||f.type||'video/mp4');
-      // Use blob URL directly — NO re-wrap (would double memory for large files)
-      body.style.background='var(--prev-vid-bg)';
-      body.innerHTML='';
-      var vidWrap=document.createElement('div');
-      vidWrap.style.cssText='width:100%;height:100%;display:flex;flex-direction:column;background:var(--prev-vid-bg)';
-      var vid=document.createElement('video');
-      vid.id='prevVid';vid.controls=true;vid.autoplay=true;vid.playsInline=true;
-      vid.style.cssText='flex:1;width:100%;max-height:68vh;outline:none;display:block;background:var(--prev-vid-bg);min-height:120px';
-      // Try with explicit MIME type first via <source>
-      var srcEl=document.createElement('source');
-      srcEl.src=url;srcEl.type=vMime;
-      vid.appendChild(srcEl);
-      // If <source> fails, try assigning src directly (bypasses MIME check)
-      srcEl.onerror=function(){
-        vid.removeChild(srcEl);
-        vid.src=url;
-        vid.load();
-        vid.play().catch(function(){});
-      };
-      vid.onerror=function(){
-        // Last resort: show download prompt
-        body.style.background='var(--bg)';
-        body.innerHTML='<div style="text-align:center;padding:40px 20px">'
-          +'<div style="font-size:48px;margin-bottom:16px">🎬</div>'
-          +'<div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px">'+esc(f.name)+'</div>'
-          +'<div style="font-size:12.5px;color:var(--t3);margin-bottom:18px">Your browser cannot play this video format inline.<br>Download it to watch with a media player.</div>'
-          +'<button class="btn btn-p" onclick="UV.downloadFile(\''+id+'\')">⬇ Download to Watch</button>'
-          +'</div>';
-      };
-      var bar=document.createElement('div');
-      bar.style.cssText='width:100%;background:var(--prev-code-bar);border-top:1px solid var(--prev-code-bd);padding:8px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0';
-      bar.innerHTML='<span style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--blue);background:rgba(79,142,247,.12);padding:2px 8px;border-radius:4px;border:1px solid rgba(79,142,247,.2)">'+esc((ext||'mp4').toUpperCase())+'</span>'
-        +'<span style="font-size:11px;color:var(--t3);font-family:JetBrains Mono,monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(f.name)+'</span>'
-        +'<span style="font-size:11px;color:var(--t3);font-family:JetBrains Mono,monospace">'+sz(f.size)+'</span>';
-      vidWrap.appendChild(vid);vidWrap.appendChild(bar);
-      body.appendChild(vidWrap);
-
-    } else if(type==='application/pdf'||ext==='pdf'){
-      body.style.background='var(--bg)';
-      body.innerHTML='<iframe src="'+url+'" style="width:100%;height:72vh;border:none;display:block"></iframe>';
-
-    } else if(type.indexOf('audio/')===0||['mp3','wav','ogg','aac','flac','m4a','opus','wma'].indexOf(ext)!==-1){
-      body.style.background='var(--bg)';
-      body.innerHTML=''
-        +'<div style="width:100%;max-width:460px;margin:0 auto;padding:32px 24px;display:flex;flex-direction:column;align-items:center;gap:20px">'
-        // waveform-style visual
-        +'<div style="width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(167,139,250,.18),rgba(79,142,247,.12));border:2px solid rgba(167,139,250,.25);display:flex;align-items:center;justify-content:center;position:relative">'
-        +'<svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="1.5" style="width:34px;height:34px"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>'
-        +'</div>'
-        // file name
-        +'<div style="text-align:center">'
-        +'<div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:5px;word-break:break-all">'+esc(f.name)+'</div>'
-        +'<div style="display:flex;align-items:center;justify-content:center;gap:8px">'
-        +'<span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#a78bfa;background:rgba(167,139,250,.1);padding:2px 8px;border-radius:4px;border:1px solid rgba(167,139,250,.2)">'+esc(ext.toUpperCase())+'</span>'
-        +'<span style="font-size:11px;color:var(--t3)">'+sz(f.size)+'</span>'
-        +'</div>'
-        +'</div>'
-        // audio element — styled via browser default but wrapped in dark container
-        +'<div style="width:100%;background:var(--prev-audio-wrap);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:var(--sh)">'
-        +'<audio id="prevAud" controls src="'+url+'" style="width:100%;height:40px;accent-color:#a78bfa;display:block"></audio>'
-        +'</div>'
-        // eq bars decoration
-        +'<div style="display:flex;align-items:flex-end;gap:3px;height:24px">'
-        +Array.from({length:18},function(_,i){
-          var h=Math.round(4+Math.abs(Math.sin(i*0.7))*18);
-          return '<div style="width:3px;height:'+h+'px;background:rgba(167,139,250,'+(0.2+Math.abs(Math.sin(i))*0.5).toFixed(2)+');border-radius:2px;animation:eq '+(0.6+Math.random()*0.8).toFixed(2)+'s ease-in-out infinite alternate"></div>';
-        }).join('')
-        +'</div>'
-        +'</div>';
-
-    } else if(['txt','md','json','xml','js','ts','py','java','c','cpp','sh','csv','html','css','php','rb','go','rs','sql','yaml','toml','ini','log'].indexOf(ext)!==-1){
-      // hljs-style code preview
-      body.style.background='var(--prev-code-bg)';
-      var reader=new FileReader();
-      reader.onload=function(ev){
-        var code=ev.target.result;
-        function applyHL(){
-          var codeEl=g('prevCode');if(!codeEl)return;
-          if(window.hljs){codeEl.removeAttribute('data-highlighted');hljs.highlightElement(codeEl);}
-        }
-        body.innerHTML=''
-          +'<div style="width:100%;height:100%;display:flex;flex-direction:column;background:var(--prev-code-bg)">'
-          +'<div style="display:flex;align-items:center;gap:8px;padding:8px 14px;background:var(--prev-code-bar);border-bottom:1px solid var(--prev-code-bd);flex-shrink:0">'
-          +'<div style="display:flex;gap:5px"><div style="width:10px;height:10px;border-radius:50%;background:var(--red);opacity:.7"></div><div style="width:10px;height:10px;border-radius:50%;background:var(--yellow);opacity:.7"></div><div style="width:10px;height:10px;border-radius:50%;background:var(--green);opacity:.7"></div></div>'
-          +'<span style="font-family:JetBrains Mono,monospace;font-size:11px;color:var(--t3);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(f.name)+'</span>'
-          +'<span style="font-family:JetBrains Mono,monospace;font-size:10px;color:var(--blue);background:rgba(79,142,247,.1);padding:2px 7px;border-radius:4px;border:1px solid rgba(79,142,247,.18)">'+esc(ext)+'</span>'
-          +'</div>'
-          +'<pre style="margin:0;flex:1;overflow:auto;font-size:12.5px;line-height:1.65;padding:0"><code id="prevCode" class="language-'+esc(ext)+'" style="display:block;padding:16px;font-family:JetBrains Mono,monospace;background:var(--prev-code-bg);color:var(--prev-code-text);white-space:pre;word-break:normal;overflow-wrap:normal">'+esc(code)+'</code></pre>'
-          +'</div>';
-        // Load hljs with theme-appropriate stylesheet
-        if(!window.hljs){
-          var isLight=['light','sepia'].indexOf(curTheme)!==-1;
-          var hljsTheme=isLight?'github.min':'github-dark.min';
-          var lnk=document.createElement('link');lnk.rel='stylesheet';lnk.id='hljs-css';lnk.href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/'+hljsTheme+'.css';document.head.appendChild(lnk);
-          var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js';
-          s.onload=function(){applyHL();};document.head.appendChild(s);
-        } else {
-          // Swap hljs stylesheet if needed
-          var isLight=['light','sepia'].indexOf(curTheme)!==-1;
-          var hljsTheme=isLight?'github.min':'github-dark.min';
-          var existing=document.getElementById('hljs-css');
-          if(existing)existing.href='https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/'+hljsTheme+'.css';
-          applyHL();
-        }
-      };
-      reader.readAsText(blob);
-    } else {
-      body.style.background='var(--bg)';
-      body.innerHTML='<div style="text-align:center;padding:40px 20px"><div style="margin-bottom:16px">'+fIcon(f,54)+'</div><div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px">'+esc(f.name)+'</div><div style="font-size:12.5px;color:var(--t3);margin-bottom:18px">Preview not available</div><button class="btn btn-p" onclick="UV.downloadFile(\''+id+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download File</button></div>';
-    }
-  });
-}
-
-/* ── TRASH / DELETE ── */
-function trashFile(id){
-  var f=aFiles[id];if(!f)return;
-  localUpdateFile(id,{deleted:true});
-  renderFilesSection();
-  toast('"'+f.name+'" moved to trash');
-}
-function restoreFile(id){
-  localUpdateFile(id,{deleted:false});
-  renderFilesSection();
-  toast('File restored!');
-}
-function permDelete(id){
-  localDeleteFile(id).then(function(){
-    renderFilesSection();
-    updateSto();
-    toast('Permanently deleted');
-  });
-}
-function emptyTrash(){
-  var ids=Object.keys(aFiles).filter(function(id){return aFiles[id].deleted;});
-  if(!ids.length){toast('Trash is already empty');return;}
-  showConfirm({title:'Empty Trash',msg:'Permanently delete '+ids.length+' file'+(ids.length!==1?'s':'')+' from this device? This cannot be undone.',ok:'Empty Trash'},function(){
-    Promise.all(ids.map(function(id){return localDeleteFile(id);})).then(function(){
-      renderFilesSection();updateSto();toast('Trash emptied ✓');
+    dbPFile({
+      name: file.name,
+      type: file.type||extT(ext),
+      ext: ext,
+      size: file.size,
+      folderId: cFolder||null,
+      localId: localId
     });
+    toast('"'+file.name+'" saved locally!');
+  }).catch(function(e){
+    toast('Save failed: ' + e);
+    g('upb').classList.remove('show');
   });
 }
-function downloadCurrent(){if(prevId)downloadFile(prevId);}
-function deleteCurrent(){if(prevId){trashFile(prevId);closeModal('previewModal');}}
+function extT(e){return({pdf:'application/pdf',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',gif:'image/gif',webp:'image/webp',svg:'image/svg+xml',mp4:'video/mp4',webm:'video/webm',mov:'video/quicktime',mp3:'audio/mpeg',wav:'audio/wav',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',zip:'application/zip',txt:'text/plain'})[e]||'application/octet-stream';}
 
 /* ── RENDER ── */
 function renderAll(){renderSbFolders();renderFolderCards();renderFilesSection();renderNotesSection();}
@@ -1530,21 +1226,17 @@ function renderFolderCards(){
   }).join('');
 }
 function renderFilesSection(){
-  if(cView==='trash'){renderTrash();return;}
-  if(cView==='recent'){renderRecent();return;}
   if(cTab==='notes'&&cFolder)return;
   var c=g('filesContainer'),q=g('searchInput').value.toLowerCase();
   var es=Object.entries(aFiles).filter(function(e){return !e[1].deleted;});
   if(cFolder){es=es.filter(function(e){return e[1].folderId===cFolder;});g('filesTitle').textContent=aFolders[cFolder]?aFolders[cFolder].name:'Folder';}
-  else{g('filesTitle').textContent='All Files';}
+  else{g('filesTitle').textContent=cView==='recent'?'Recent':cView==='trash'?'Trash':'All Files';}
   if(q)es=es.filter(function(e){return e[1].name.toLowerCase().indexOf(q)!==-1;});
   es.sort(function(a,b){return (b[1].createdAt||0)-(a[1].createdAt||0);});
   g('filesCount').textContent=es.length?es.length+' file'+(es.length!==1?'s':''):'';
   if(!es.length){c.innerHTML='<div class="empty"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:27px;height:27px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>'+(q?'No matches':'No files yet')+'</h3><p>'+(q?'Try a different keyword':'Upload files to get started')+'</p></div>';return;}
   c.className=fView==='grid'?'files-grid':'files-list';
   c.innerHTML=es.map(function(e){return fView==='grid'?renderFC(e[0],e[1]):renderFLI(e[0],e[1]);}).join('');
-  // Render thumbnails from IDB
-  es.forEach(function(e){renderThumb(e[0],e[1]);});
 }
 function renderNotesSection(){
   if(cTab!=='notes'||!cFolder)return;
@@ -1569,58 +1261,6 @@ function updateTabBadges(){
   if(g('ftab-files-badge'))g('ftab-files-badge').textContent=fc;
   if(g('ftab-notes-badge'))g('ftab-notes-badge').textContent=nc;
 }
-
-/* ── THUMBNAIL rendering from IDB blobs ── */
-function renderThumb(id,f){
-  var type=f.type||'',ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase();
-  var isImg=type.indexOf('image/')===0||['jpg','jpeg','png','gif','webp','avif','svg'].indexOf(ext)!==-1;
-  var isVid=type.indexOf('video/')===0||['mp4','webm','mov','avi','mkv','m4v'].indexOf(ext)!==-1;
-  if(!isImg&&!isVid)return;
-  var thumbEl=document.querySelector('[data-thumb="'+id+'"]');
-  if(!thumbEl)return;
-  idbGet(id).then(function(blob){
-    if(!blob)return;
-    var url=URL.createObjectURL(blob);
-    if(isImg){
-      var img=document.createElement('img');
-      img.style.cssText='width:100%;height:100%;object-fit:cover';
-      img.onload=function(){thumbEl.innerHTML='';thumbEl.appendChild(img);};
-      img.onerror=function(){URL.revokeObjectURL(url);};
-      img.src=url;
-    } else {
-      // Video: use canvas snapshot via seeked event for best thumbnail
-      var vid=document.createElement('video');
-      vid.muted=true;vid.playsInline=true;vid.preload='metadata';
-      vid.style.cssText='width:100%;height:100%;object-fit:cover;display:block';
-      vid.onloadedmetadata=function(){
-        // seek to 1s or 10% in for a better frame
-        vid.currentTime=Math.min(1,vid.duration*0.1)||0;
-      };
-      vid.onseeked=function(){
-        // snapshot to canvas for true thumbnail
-        try{
-          var canvas=document.createElement('canvas');
-          canvas.width=vid.videoWidth||320;canvas.height=vid.videoHeight||180;
-          canvas.getContext('2d').drawImage(vid,0,0,canvas.width,canvas.height);
-          var img2=document.createElement('img');
-          img2.style.cssText='width:100%;height:100%;object-fit:cover;display:block';
-          img2.src=canvas.toDataURL('image/jpeg',0.7);
-          thumbEl.innerHTML='';thumbEl.appendChild(img2);
-        }catch(e){
-          // cross-origin canvas taint etc — fallback: show the video element itself
-          thumbEl.innerHTML='';thumbEl.appendChild(vid);
-          return;
-        }
-        URL.revokeObjectURL(url);
-        vid.src='';
-      };
-      vid.onerror=function(){URL.revokeObjectURL(url);};
-      vid.src=url;
-      vid.load();
-    }
-  }).catch(function(){});
-}
-
 function renderTrash(){
   g('filesTitle').textContent='Trash';
   var c=g('filesContainer'),es=Object.entries(aFiles).filter(function(e){return e[1].deleted;});
@@ -1630,16 +1270,8 @@ function renderTrash(){
   c.innerHTML='<div class="trash-bar"><button class="btn btn-d btn-sm" onclick="UV.emptyTrash()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Empty Trash</button></div>'
     +es.map(function(e){
       var id=e[0],f=e[1],ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase();
-      return '<div class="filecrd fi-anim" style="opacity:.75">'
-        +'<div class="fthumb" data-thumb="'+id+'">'+fIconHtml(f,40)+'<div class="ftype-badge">'+esc(ext||'file')+'</div></div>'
-        +'<div class="finfo"><div class="fnm">'+esc(f.name)+'</div><div class="fmeta">'+sz(f.size)+'</div></div>'
-        +'<div style="display:flex;gap:6px;padding:0 10px 10px">'
-        +'<button onclick="UV.restoreFile(\''+id+'\')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 0;border-radius:8px;background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.2);color:var(--green);font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Restore</button>'
-        +'<button onclick="UV.permDelete(\''+id+'\')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 0;border-radius:8px;background:rgba(242,95,92,.1);border:1px solid rgba(242,95,92,.2);color:var(--red);font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Delete</button>'
-        +'</div>'
-        +'</div>';
+      return '<div class="filecrd fi-anim" style="opacity:.6"><div class="fthumb">'+thumb(f, id)+'<div class="ftype-badge">'+esc(ext||'file')+'</div></div><div class="finfo"><div class="fnm">'+esc(f.name)+'</div><div class="fmeta">'+sz(f.size)+'</div></div><div class="facts"><div class="fact" onclick="UV.restoreFile(\''+id+'\')" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div class="fact" onclick="UV.permDelete(\''+id+'\')" style="color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div></div>';
     }).join('');
-  es.forEach(function(e){renderThumb(e[0],e[1]);});
 }
 function renderRecent(){
   g('filesTitle').textContent='Recent';g('filesCount').textContent='';
@@ -1648,12 +1280,39 @@ function renderRecent(){
   c.className=fView==='list'?'files-list':'files-grid';
   if(!es.length){c.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:27px;height:27px"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h3>No recent files</h3><p>Uploaded files appear here</p></div>';return;}
   c.innerHTML=es.map(function(e){return fView==='list'?renderFLI(e[0],e[1]):renderFC(e[0],e[1]);}).join('');
-  es.forEach(function(e){renderThumb(e[0],e[1]);});
 }
+
+/* ── THUMBNAILS & DYNAMIC LOADING ── */
+function thumb(f, id){
+  var type=f.type||'',ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase();
+  if(type.indexOf('image/')===0||['jpg','jpeg','png','gif','webp','svg','avif'].indexOf(ext)!==-1){
+    setTimeout(function(){ loadMediaThumb(f.localId, id, 'img'); }, 10);
+    return '<div id="thumb-'+id+'" style="width:100%;height:100%"></div>';
+  }
+  if(type.indexOf('video/')===0||['mp4','webm','mov'].indexOf(ext)!==-1){
+    setTimeout(function(){ loadMediaThumb(f.localId, id, 'vid'); }, 10);
+    return '<div id="thumb-'+id+'" style="width:100%;height:100%"></div>';
+  }
+  return fIcon(f,40);
+}
+function loadMediaThumb(localId, id, type){
+  getLocalURL(localId, function(url){
+    var el = g('thumb-'+id);
+    if(el){
+      if(!url) {
+        el.innerHTML = '<div style="color:var(--t3);font-size:10.5px;text-align:center;padding:15px;line-height:1.4">Not on this device</div>';
+      } else {
+        if(type === 'img') el.innerHTML = '<img src="'+url+'" loading="lazy" style="width:100%;height:100%;object-fit:cover">';
+        else el.innerHTML = '<video src="'+url+'#t=0.1" muted preload="metadata" style="width:100%;height:100%;object-fit:cover"></video>';
+      }
+    }
+  });
+}
+
 function renderFC(id,f){
   var ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase();
   return '<div class="filecrd fi-anim" onclick="UV.previewFile(\''+id+'\')" oncontextmenu="UV.openCtx(event,\''+id+'\')">'
-    +'<div class="fthumb" data-thumb="'+id+'">'+fIconHtml(f,40)+'<div class="ftype-badge">'+esc(ext||'file')+'</div></div>'
+    +'<div class="fthumb">'+thumb(f, id)+'<div class="ftype-badge">'+esc(ext||'file')+'</div></div>'
     +'<div class="finfo"><div class="fnm">'+esc(f.name)+'</div><div class="fmeta">'+sz(f.size)+' · '+ago(f.createdAt)+'</div></div>'
     +'<div class="facts">'
     +'<div class="fact" onclick="event.stopPropagation();UV.previewFile(\''+id+'\')" title="Preview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>'
@@ -1674,71 +1333,8 @@ function renderFLI(id,f){
 }
 
 /* ── NOTES MODAL ── */
-/* ── CUSTOM CONFIRM DIALOG ── */
-var _confirmCb=null;
-function showConfirm(opts,cb){
-  // opts: {title, msg, ok, icon, danger}
-  _confirmCb=cb;
-  var danger=opts.danger!==false;
-  var iconColor=danger?'rgba(242,95,92,.12)':'rgba(79,142,247,.12)';
-  var iconStroke=danger?'var(--red)':'var(--blue)';
-  var iconSvg=opts.icon||'<svg viewBox="0 0 24 24" fill="none" stroke="'+iconStroke+'" stroke-width="1.8" style="width:26px;height:26px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
-  g('confirmIcon').style.background=iconColor;
-  g('confirmIcon').innerHTML=iconSvg;
-  g('confirmTitle').textContent=opts.title||'Are you sure?';
-  g('confirmMsg').textContent=opts.msg||'';
-  var okBtn=g('confirmOkBtn');
-  okBtn.textContent=opts.ok||'Delete';
-  okBtn.className='btn '+(danger?'btn-d':'btn-p');
-  okBtn.style.cssText='flex:1;justify-content:center;padding:13px';
-  openModal('confirmModal');
-}
-function confirmOk(){closeModal('confirmModal');if(_confirmCb){var cb=_confirmCb;_confirmCb=null;cb();}}
-function confirmCancel(){closeModal('confirmModal');_confirmCb=null;}
-
-function buildNcPick(sel){g('ncPick').innerHTML=NOTE_COLORS.map(function(c){return '<div class="nc-opt nc-'+c+(c===sel?' sel':'')+'" onclick="UV.pickNoteColor(\''+c+'\')" title="'+c+'"></div>';}).join('');}
-
-/* ── NOTE PREVIEW ── */
-var NOTE_COLOR_MAP={
-  yellow:{accent:'var(--yellow)',hex:'#f7c948'},
-  green:{accent:'var(--green)',hex:'#3ecf8e'},
-  blue:{accent:'var(--blue)',hex:'#4f8ef7'},
-  pink:{accent:'var(--pink)',hex:'#f472b6'},
-  purple:{accent:'var(--purple)',hex:'#a78bfa'}
-};
-var prevNoteId=null;
-function previewNote(id){
-  var n=aNotes[id];if(!n)return;
-  prevNoteId=id;
-  var col=n.color||'yellow';
-  var cm=NOTE_COLOR_MAP[col]||NOTE_COLOR_MAP.yellow;
-  var sheet=g('notePreviewSheet');
-  sheet.className='sheet sheet-lg np-'+col;
-  g('notePreviewDot').style.background=cm.hex;
-  g('notePreviewTitle').textContent=n.title||'Untitled Note';
-  var ts=n.updatedAt||n.createdAt;
-  var wordCount=(n.content||'').trim().split(/\s+/).filter(Boolean).length;
-  g('notePreviewMeta').textContent=(ts?ago(ts)+' · ':'')+wordCount+' word'+(wordCount!==1?'s':'');
-  g('notePreviewBar').style.background=cm.hex;
-  var raw=esc(n.content||'(empty note)');
-  raw=raw.replace(/(https?:\/\/[^\s&lt;&gt;"]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:'+cm.hex+';text-decoration:underline;text-underline-offset:3px">$1</a>');
-  g('notePreviewBody').innerHTML=raw;
-  // Open modal only if not already open
-  if(!g('notePreviewModal').classList.contains('open')){
-    openModal('notePreviewModal');
-  }
-}
-function editFromPreview(){
-  if(!prevNoteId)return;
-  closeModal('notePreviewModal');
-  setTimeout(function(){openEditNote(prevNoteId);},180);
-}
-function deletePreviewNote(){
-  if(!prevNoteId)return;
-  var n=aNotes[prevNoteId];
-  showConfirm({title:'Delete Note',msg:'"'+(n&&n.title?n.title:'This note')+'" will be permanently deleted.',ok:'Delete'},function(){
-    dbDeleteNote(prevNoteId);closeModal('notePreviewModal');toast('Note deleted');prevNoteId=null;
-  });
+function buildNcPick(sel){
+  g('ncPick').innerHTML=NOTE_COLORS.map(function(c){return '<div class="nc-opt nc-'+c+(c===sel?' sel':'')+'" onclick="UV.pickNoteColor(\''+c+'\')" title="'+c+'"></div>';}).join('');
 }
 function openNewNoteModal(){
   if(!cUser){openLoginModal();return;}
@@ -1754,44 +1350,115 @@ function openEditNote(id){
   buildNcPick(selNoteColor);g('delNoteBtn').style.display='';
   openModal('noteModal');
 }
+function previewNote(id){
+  var n=aNotes[id];if(!n)return;
+  curNotePrevId=id;
+  g('notePrevTitle').textContent=n.title||'Untitled Note';
+  g('notePrevContent').textContent=n.content||'';
+  g('notePrevDate').textContent='Updated ' + ago(n.updatedAt||n.createdAt);
+  g('notePrevEditBtn').onclick=function(){ closeModal('notePreviewModal'); openEditNote(id); };
+  g('notePrevDelBtn').onclick=function(){ closeModal('notePreviewModal'); quickDeleteNote(id); };
+  openModal('notePreviewModal');
+}
 function pickNoteColor(c){selNoteColor=c;buildNcPick(c);}
 function saveNote(){
   var title=g('noteTitle').value.trim(), content=g('noteContent').value.trim();
   if(!content&&!title){toast('Write something first');return;}
-  closeModal('noteModal');
-
   if(editNoteId){
     dbUpdateNote(editNoteId,{title:title,content:content,color:selNoteColor});
-    // Patch aNotes locally so preview reflects update instantly (before Firebase sync)
-    if(aNotes[editNoteId]){
-      aNotes[editNoteId]=Object.assign({},aNotes[editNoteId],{title:title,content:content,color:selNoteColor,updatedAt:Date.now()});
-    }
     toast('Note updated! ✓');
-    // Refresh preview if it was open for this note
-    setTimeout(function(){previewNote(editNoteId);},160);
   } else {
-    // For new notes, generate a temp local ID so we can preview immediately
-    var tempId='tmp_'+Date.now();
-    var newNote={folderId:cFolder,title:title,content:content,color:selNoteColor,createdAt:Date.now(),updatedAt:Date.now()};
-    aNotes[tempId]=newNote;
-    dbAddNote(newNote); // Firebase will assign real ID and update aNotes via onValue
+    dbAddNote({folderId:cFolder,title:title,content:content,color:selNoteColor});
     toast('Note saved! ✓');
-    renderNotesSection();
-    updateTabBadges();
-    setTimeout(function(){previewNote(tempId);},160);
   }
+  closeModal('noteModal');
 }
 function deleteNote(){
-  if(!editNoteId)return;
-  var n=aNotes[editNoteId];
-  showConfirm({title:'Delete Note',msg:'"'+(n&&n.title?n.title:'This note')+'" will be permanently deleted.',ok:'Delete'},function(){
-    dbDeleteNote(editNoteId);closeModal('noteModal');toast('Note deleted');
+  if(!editNoteId)return;if(!confirm('Delete this note?'))return;
+  dbDeleteNote(editNoteId);closeModal('noteModal');toast('Note deleted');
+}
+function quickDeleteNote(id){if(!confirm('Delete this note?'))return;dbDeleteNote(id);toast('Note deleted');}
+
+/* ── FILE ACTIONS ── */
+function downloadFile(id){
+  var f=aFiles[id];if(!f)return;
+  getLocalURL(f.localId, function(url){
+    if(!url){ toast('File not physically available on this device'); return; }
+    var a=document.createElement('a');a.href=url;a.download=f.name;a.target='_blank';a.click();
+    toast('Downloading…');
   });
 }
-function quickDeleteNote(id){
-  var n=aNotes[id];
-  showConfirm({title:'Delete Note',msg:'"'+(n&&n.title?n.title:'This note')+'" will be permanently deleted.',ok:'Delete'},function(){
-    dbDeleteNote(id);toast('Note deleted');
+function trashFile(id){var f=aFiles[id];if(!f)return;dbUFile(id,{deleted:true});toast('"'+f.name+'" moved to trash');}
+function restoreFile(id){dbUFile(id,{deleted:false});toast('File restored!');}
+function permDelete(id){if(!confirm('Permanently delete? Cannot be undone.'))return;dbDFile(id,aFiles[id]&&aFiles[id].localId);toast('Permanently deleted');}
+function emptyTrash(){if(!confirm('Empty trash permanently?'))return;Object.entries(aFiles).forEach(function(e){if(e[1].deleted)dbDFile(e[0],e[1].localId);});toast('Trash emptied');}
+function downloadCurrent(){if(prevId)downloadFile(prevId);}
+function deleteCurrent(){if(prevId){trashFile(prevId);closeModal('previewModal');}}
+
+/* ── PREVIEW WITH DOCX/TEXT ZOOM ── */
+function previewFile(id){
+  var f=aFiles[id];if(!f)return;prevId=id;
+  currentDocZoom = 1; // Reset zoom on new file
+  g('prevTitle').textContent=f.name;g('prevInfo').textContent=sz(f.size)+' · '+ago(f.createdAt);
+  var body=g('prevBody'),ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase(),type=f.type||'';
+  
+  body.innerHTML='<div style="color:var(--t3);padding:40px;text-align:center;width:100%">Loading preview...</div>';
+  openModal('previewModal');
+
+  getLocalURL(f.localId, function(url){
+    if(!url){
+      body.innerHTML='<div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;"><div style="margin-bottom:16px">'+fIcon(f,54)+'</div><div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px">'+esc(f.name)+'</div><div style="font-size:12.5px;color:var(--red);margin-bottom:18px">File is not available on this device<br>(Saved locally on another device)</div></div>';
+      return;
+    }
+
+    if(type.indexOf('image/')===0||['jpg','jpeg','png','gif','webp','svg','bmp','avif'].indexOf(ext)!==-1){
+      body.innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:10px;"><img src="'+url+'" alt="'+esc(f.name)+'" loading="lazy" style="max-width:100%;max-height:100%;object-fit:contain"></div>';
+    } else if(type.indexOf('video/')===0||['mp4','webm','mov','avi','mkv','m4v'].indexOf(ext)!==-1){
+      body.innerHTML='<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;"><video controls autoplay playsinline src="'+url+'" style="max-width:100%;max-height:100%;width:100%;outline:none"></video></div>';
+    } else if(type.indexOf('audio/')===0||['mp3','wav','ogg','aac','flac','m4a'].indexOf(ext)!==-1){
+      body.innerHTML='<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px;text-align:center;"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.4" style="width:54px;height:54px;margin-bottom:16px"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><div style="font-size:14px;font-weight:700;color:var(--t1);margin-bottom:16px">'+esc(f.name)+'</div><audio controls src="'+url+'" style="width:100%;max-width:360px"></audio></div>';
+    } else if(type==='application/pdf'||ext==='pdf'){
+      body.innerHTML='<div style="position:absolute;inset:0;display:flex;flex-direction:column;"><iframe src="'+url+'#toolbar=0&view=FitH" style="flex:1;width:100%;height:100%;border:none;background:#fff;"></iframe><div style="padding:10px;text-align:center;background:var(--bg2);border-top:1px solid var(--bd);"><a href="'+url+'" target="_blank" class="btn btn-g btn-sm">Open in new tab (if preview is blank)</a></div></div>';
+    } else if(['doc','docx'].indexOf(ext)!==-1) {
+      body.innerHTML='<div style="color:var(--t3);padding:40px;text-align:center;width:100%">Rendering DOCX...</div>';
+      function renderDocx(){
+        IDB.get(f.localId).then(function(blob){
+          blob.arrayBuffer().then(function(ab){
+            window.mammoth.convertToHtml({arrayBuffer: ab}).then(function(res){
+              var toolbar = '<div style="position:absolute;top:16px;right:24px;z-index:50;display:flex;gap:6px;background:var(--bg2);padding:6px;border-radius:99px;border:1px solid var(--bd);box-shadow:var(--sh);">' +
+                '<button onclick="UV.changeDocZoom(-0.1)" class="vbtn" style="padding:4px 8px;border-radius:99px;color:var(--t1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>' +
+                '<button onclick="UV.changeDocZoom(0.1)" class="vbtn" style="padding:4px 8px;border-radius:99px;color:var(--t1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>' +
+                '</div>';
+              body.innerHTML= toolbar + '<div style="position:absolute;inset:0;overflow:auto;-webkit-overflow-scrolling:touch;padding:24px;background:#fff;color:#000;font-family:sans-serif;"><div id="docx-content" style="zoom:1;transform-origin:top left;transition:zoom 0.2s ease;">'+res.value+'</div></div>';
+            }).catch(function(err){
+              body.innerHTML='<div style="padding:20px;color:var(--red);width:100%;">Error reading DOCX: '+err.message+'</div>';
+            });
+          });
+        });
+      }
+      if(window.mammoth){ renderDocx(); }
+      else {
+        var s=document.createElement('script');
+        s.src='https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js';
+        s.onload=renderDocx;
+        s.onerror=function(){ body.innerHTML='<div style="padding:20px;color:var(--red);width:100%;">Failed to load DOCX viewer</div>'; };
+        document.head.appendChild(s);
+      }
+    } else if(['txt','md','json','xml','js','ts','py','java','c','cpp','sh','csv','html','css'].indexOf(ext)!==-1) {
+      IDB.get(f.localId).then(function(blob){
+        var reader = new FileReader();
+        reader.onload = function(e){
+            var toolbar = '<div style="position:absolute;top:16px;right:24px;z-index:50;display:flex;gap:6px;background:var(--bg3);padding:6px;border-radius:99px;border:1px solid var(--bd);box-shadow:var(--sh);">' +
+                '<button onclick="UV.changeDocZoom(-0.1)" class="vbtn" style="padding:4px 8px;border-radius:99px;color:var(--t1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><line x1="5" y1="12" x2="19" y2="12"/></svg></button>' +
+                '<button onclick="UV.changeDocZoom(0.1)" class="vbtn" style="padding:4px 8px;border-radius:99px;color:var(--t1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>' +
+                '</div>';
+          body.innerHTML= toolbar + '<div style="position:absolute;inset:0;overflow:auto;-webkit-overflow-scrolling:touch;padding:24px;background:var(--bg1);color:var(--t1);font-family:\'JetBrains Mono\',monospace;line-height:1.6;"><div id="docx-content" style="zoom:1; font-size:12.5px; white-space:pre-wrap;word-break:break-word;transition:zoom 0.2s ease;transform-origin:top left;">'+esc(e.target.result)+'</div></div>';
+        };
+        reader.readAsText(blob);
+      });
+    } else {
+      body.innerHTML='<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;text-align:center;"><div style="margin-bottom:16px">'+fIcon(f,54)+'</div><div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px">'+esc(f.name)+'</div><div style="font-size:12.5px;color:var(--t3);margin-bottom:18px">Preview not available</div><button class="btn btn-p" onclick="UV.downloadFile(\''+id+'\')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download File</button></div>';
+    }
   });
 }
 
@@ -1800,16 +1467,13 @@ function openNewFolderModal(){if(!cUser){openLoginModal();return;}g('folderNameI
 function createFolder(){var n=g('folderNameInput').value.trim();if(!n){toast('Enter a name');return;}dbPF(n,selColor,g('folderSubjectInput').value.trim());closeModal('newFolderModal');toast('"'+n+'" folder created!');}
 function openEditFolder(id){var f=aFolders[id];if(!f)return;editFId=id;g('editFolderNameInput').value=f.name;selColor=f.color||'#4f8ef7';buildPicker('cpickEdit',selColor);openModal('editFolderModal');}
 function saveFolder(){var n=g('editFolderNameInput').value.trim();if(!n){toast('Enter a name');return;}dbUF(editFId,{name:n,color:selColor});closeModal('editFolderModal');toast('Folder updated!');}
-function deleteFolderConfirm(){
-  var f=aFolders[editFId];
-  showConfirm({title:'Delete Folder',msg:'"'+(f?f.name:'This folder')+'" will be deleted. Files and notes inside will be unlinked.',ok:'Delete Folder'},function(){
-    dbDF(editFId);if(cFolder===editFId){cFolder=null;cTab='files';showFolderUI(false);}closeModal('editFolderModal');toast('Folder deleted');
-  });
-}
+function deleteFolderConfirm(){if(!confirm('Delete folder? Files and notes will be unlinked.'))return;dbDF(editFId);if(cFolder===editFId){cFolder=null;cTab='files';showFolderUI(false);}closeModal('editFolderModal');toast('Folder deleted');}
 function openFolder(id){
   cFolder=id;cTab='files';cView='home';
   updateNavHL();renderSbFolders();renderFolderCards();
-  showFolderUI(true);setTab('files');closeSidebar();
+  showFolderUI(true);
+  setTab('files');
+  closeSidebar();
 }
 function goHome(){cFolder=null;cTab='files';showFolderUI(false);renderFolderCards();renderFilesSection();g('uploadZone').style.display='';}
 function showFolderUI(show){
@@ -1836,20 +1500,13 @@ function openMoveModal(id){
   g('moveFolderList').innerHTML=keys.map(function(fid){var f=aFolders[fid];return '<div class="move-item" onclick="UV.moveToFolder(\''+fid+'\')"><div style="width:13px;height:13px;border-radius:4px;background:'+(f.color||'#4f8ef7')+';flex-shrink:0"></div><span style="font-size:14px;font-weight:600">'+esc(f.name)+'</span><div style="margin-left:auto;font-size:11px;color:var(--t3)">'+fCnt(fid)+' files</div></div>';}).join('');
   openModal('moveModal');
 }
-function moveToFolder(fid){
-  if(ctxId===null)return;
-  localUpdateFile(ctxId,{folderId:fid});
-  renderFilesSection();
-  renderSbFolders();
-  closeModal('moveModal');
-  toast(fid?'File moved!':'Removed from folder');
-}
+function moveToFolder(fid){if(!ctxId)return;dbUFile(ctxId,{folderId:fid});closeModal('moveModal');toast(fid?'File moved!':'Removed from folder');}
 
 /* ── CONTEXT MENU ── */
 function openCtx(e,id){
   e.preventDefault();ctxId=id;
   var f=aFiles[id],ext=(f&&f.ext||'').toLowerCase(),type=(f&&f.type||'');
-  var can=type.indexOf('image/')===0||type.indexOf('video/')===0||type.indexOf('audio/')===0||type==='application/pdf'||['jpg','jpeg','png','gif','webp','mp4','webm','mov','mp3','wav','ogg','pdf','svg'].indexOf(ext)!==-1;
+  var can=type.indexOf('image/')===0||type.indexOf('video/')===0||type.indexOf('audio/')===0||type==='application/pdf'||['jpg','jpeg','png','gif','webp','mp4','webm','mov','mp3','wav','ogg','pdf','svg','doc','docx','txt','md','csv'].indexOf(ext)!==-1;
   g('ctxPreview').style.display=can?'flex':'none';
   var m=g('ctxMenu');m.style.left=Math.min(e.clientX,window.innerWidth-185)+'px';m.style.top=Math.min(e.clientY,window.innerHeight-165)+'px';m.classList.add('open');
 }
@@ -1859,44 +1516,24 @@ function ctxDo(a){g('ctxMenu').classList.remove('open');if(!ctxId)return;if(a===
 function openConvertModal(){openModal('convertModal');}
 function handleConvertDrop(e){e.preventDefault();var f=e.dataTransfer.files[0];if(f)processConvert(f);}
 function handleConvertFile(e){var f=e.target.files[0];if(f)processConvert(f);e.target.value='';}
-
 function processConvert(file){
   var stat=g('cvtStatus'),acts=g('cvtActions');
   stat.className='cvt-stat show';stat.textContent='⏳ Loading PDF library…';acts.className='cvt-acts';
-
   function run(){
     var reader=new FileReader();
     reader.onload=function(ev){
       window.pdfjsLib.getDocument({data:ev.target.result}).promise.then(function(pdf){
-        var n=pdf.numPages;
-        stat.textContent='📄 Extracting '+n+' page'+(n!==1?'s':'')+'…';
-
-        // Collect rich content from every page
-        var pageDataArr=[];
+        var n=pdf.numPages,texts=[];stat.textContent='📄 Extracting '+n+' page'+(n!==1?'s':'')+'…';
         var chain=Promise.resolve();
-        for(var i=1;i<=n;i++){(function(pi){
-          chain=chain.then(function(){
-            return pdf.getPage(pi).then(function(page){
-              var vp=page.getViewport({scale:1});
-              return page.getTextContent({normalizeWhitespace:false,includeMarkedContent:false}).then(function(tc){
-                pageDataArr.push({pageNum:pi,items:tc.items,height:vp.height,width:vp.width});
-                stat.textContent='📄 Page '+pi+'/'+n+'…';
-              });
-            });
-          });
-        })(i);}
-
+        for(var i=1;i<=n;i++){(function(pi){chain=chain.then(function(){return pdf.getPage(pi).then(function(p){return p.getTextContent().then(function(tc){texts.push('--- Page '+pi+' ---\n'+tc.items.map(function(it){return it.str;}).join(' '));stat.textContent='📄 Page '+pi+'/'+n+'…';});});});})(i);}
         chain.then(function(){
+          if(!texts.join('').trim()){stat.textContent='⚠️ No extractable text found.';return;}
           stat.textContent='📝 Building Word document…';
-          makeDocxRich(pageDataArr,n).then(function(blob){
+          makeDocx(texts.join('\n')).then(function(blob){
             cvtBlob=blob;cvtName=file.name.replace(/\.pdf$/i,'.docx');
             stat.textContent='✅ Done: "'+cvtName+'"';acts.className='cvt-acts show';
             g('dlCvtBtn').onclick=function(){var u=URL.createObjectURL(cvtBlob),a=document.createElement('a');a.href=u;a.download=cvtName;a.click();setTimeout(function(){URL.revokeObjectURL(u);},1000);toast('Downloading…');};
-            g('saveCvtBtn').onclick=function(){
-              closeModal('convertModal');
-              var f2=new File([cvtBlob],cvtName,{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
-              uploadFile(f2);
-            };
+            g('saveCvtBtn').onclick=function(){if(!cUser){openLoginModal();return;}closeModal('convertModal');uploadFile(new File([cvtBlob],cvtName,{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}));};
           });
         });
       }).catch(function(e){stat.textContent='❌ Error: '+e.message;});
@@ -1905,169 +1542,22 @@ function processConvert(file){
   if(window.pdfjsLib){run();}
   else{var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';s.onload=function(){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';run();};s.onerror=function(){stat.textContent='❌ Failed to load PDF library';};document.head.appendChild(s);}
 }
-
-function makeDocxRich(pageDataArr,totalPages){
+function makeDocx(text){
   return new Promise(function(resolve){
     function build(){
-      // ── Step 1: Analyse all font sizes to determine relative heading levels
-      var allSizes=[];
-      pageDataArr.forEach(function(pd){
-        pd.items.forEach(function(it){
-          if(it.str&&it.str.trim()){
-            var h=Math.abs(it.transform[3])||12;
-            allSizes.push(Math.round(h*10)/10);
-          }
-        });
-      });
-      allSizes.sort(function(a,b){return b-a;});
-      // Body size = most common size (mode)
-      var sizeCount={};allSizes.forEach(function(s){sizeCount[s]=(sizeCount[s]||0)+1;});
-      var bodySize=parseFloat(Object.keys(sizeCount).sort(function(a,b){return sizeCount[b]-sizeCount[a];})[0])||12;
-      var h1Threshold=bodySize*1.5;
-      var h2Threshold=bodySize*1.2;
-
-      // ── Step 2: Group items into lines, then paragraphs
-      function xmlEsc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-      var allParas=[]; // array of {xml, style}
-
-      pageDataArr.forEach(function(pd,pidx){
-        if(pidx>0){
-          // Page break between pages
-          allParas.push({xml:'<w:p><w:r><w:br w:type="page"/></w:r></w:p>',style:null});
-        }
-
-        var items=pd.items.filter(function(it){return it.str&&it.str.trim();});
-        if(!items.length)return;
-
-        // Group by Y position (same line = within 2pt)
-        var lines=[];
-        items.forEach(function(it){
-          var y=Math.round((pd.height-it.transform[5])*10)/10;
-          var x=it.transform[4];
-          var found=false;
-          for(var li=0;li<lines.length;li++){
-            if(Math.abs(lines[li].y-y)<3){
-              lines[li].items.push({str:it.str,x:x,fontSize:Math.abs(it.transform[3])||bodySize,bold:!!(it.fontName&&(it.fontName.toLowerCase().indexOf('bold')!==-1||it.fontName.toLowerCase().indexOf('black')!==-1)),italic:!!(it.fontName&&it.fontName.toLowerCase().indexOf('italic')!==-1)});
-              found=true;break;
-            }
-          }
-          if(!found)lines.push({y:y,items:[{str:it.str,x:x,fontSize:Math.abs(it.transform[3])||bodySize,bold:!!(it.fontName&&(it.fontName.toLowerCase().indexOf('bold')!==-1||it.fontName.toLowerCase().indexOf('black')!==-1)),italic:!!(it.fontName&&it.fontName.toLowerCase().indexOf('italic')!==-1)}]});
-        });
-
-        // Sort lines top-to-bottom
-        lines.sort(function(a,b){return a.y-b.y;});
-
-        lines.forEach(function(line){
-          // Sort items left-to-right within line
-          line.items.sort(function(a,b){return a.x-b.x;});
-          var lineText=line.items.map(function(it){return it.str;}).join(' ').trim();
-          if(!lineText)return;
-
-          // Determine dominant font size for this line
-          var maxSize=Math.max.apply(null,line.items.map(function(it){return it.fontSize;}));
-          var twips=Math.round(maxSize*2); // OOXML half-points
-          var isH1=maxSize>=h1Threshold;
-          var isH2=maxSize>=h2Threshold&&!isH1;
-
-          // Build run XML preserving per-run formatting
-          var runsXml='';
-          line.items.forEach(function(it){
-            if(!it.str)return;
-            var rPr='';
-            var itTwips=Math.round(it.fontSize*2);
-            rPr+='<w:sz w:val="'+itTwips+'"/><w:szCs w:val="'+itTwips+'"/>';
-            if(it.bold||isH1)rPr+='<w:b/><w:bCs/>';
-            if(it.italic)rPr+='<w:i/><w:iCs/>';
-            runsXml+='<w:r><w:rPr>'+rPr+'</w:rPr><w:t xml:space="preserve">'+xmlEsc(it.str)+'</w:t></w:r>';
-          });
-
-          var pPr='';
-          if(isH1){pPr='<w:pPr><w:pStyle w:val="Heading1"/><w:spacing w:before="240" w:after="120"/></w:pPr>';}
-          else if(isH2){pPr='<w:pPr><w:pStyle w:val="Heading2"/><w:spacing w:before="160" w:after="80"/></w:pPr>';}
-          else{pPr='<w:pPr><w:spacing w:after="80"/></w:pPr>';}
-
-          allParas.push({xml:'<w:p>'+pPr+runsXml+'</w:p>'});
-        });
-      });
-
-      var bodyXml=allParas.map(function(p){return p.xml;}).join('');
-
-      // ── Step 3: Build OOXML zip
       var zip=new JSZip();
-
-      zip.file('[Content_Types].xml',
-        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'+
-        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'+
-        '<Default Extension="xml" ContentType="application/xml"/>'+
-        '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>'+
-        '<Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>'+
-        '<Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/>'+
-        '</Types>');
-
-      zip.folder('_rels').file('.rels',
-        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
-        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>'+
-        '</Relationships>');
-
+      zip.file('[Content_Types].xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/></Types>');
+      zip.folder('_rels').file('.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+      var paras=text.split('\n').map(function(l){var e=l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');return l.indexOf('--- Page ')===0?'<w:p><w:pPr><w:pStyle w:val="Heading1"/></w:pPr><w:r><w:t>'+e+'</w:t></w:r></w:p>':'<w:p><w:r><w:t xml:space="preserve">'+e+'</w:t></w:r></w:p>';}).join('');
       var wf=zip.folder('word');
-      wf.folder('_rels').file('document.xml.rels',
-        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
-        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>'+
-        '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>'+
-        '</Relationships>');
-
-      var bodySzTwips=Math.round(bodySize*2);
-      wf.file('styles.xml',
-        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-        '<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'+
-        ' xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml">'+
-        // Default / Normal
-        '<w:style w:type="paragraph" w:default="1" w:styleId="Normal">'+
-          '<w:name w:val="Normal"/>'+
-          '<w:pPr><w:spacing w:after="80" w:line="276" w:lineRule="auto"/></w:pPr>'+
-          '<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:sz w:val="'+bodySzTwips+'"/><w:szCs w:val="'+bodySzTwips+'"/><w:color w:val="1A1A1A"/></w:rPr>'+
-        '</w:style>'+
-        // Heading 1
-        '<w:style w:type="paragraph" w:styleId="Heading1">'+
-          '<w:name w:val="heading 1"/>'+
-          '<w:basedOn w:val="Normal"/>'+
-          '<w:pPr><w:spacing w:before="320" w:after="160"/><w:keepNext/></w:pPr>'+
-          '<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:b/><w:bCs/><w:sz w:val="'+Math.round(h1Threshold*2)+'"/><w:szCs w:val="'+Math.round(h1Threshold*2)+'"/><w:color w:val="1A1A1A"/></w:rPr>'+
-        '</w:style>'+
-        // Heading 2
-        '<w:style w:type="paragraph" w:styleId="Heading2">'+
-          '<w:name w:val="heading 2"/>'+
-          '<w:basedOn w:val="Normal"/>'+
-          '<w:pPr><w:spacing w:before="200" w:after="100"/><w:keepNext/></w:pPr>'+
-          '<w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri"/><w:b/><w:bCs/><w:sz w:val="'+Math.round(h2Threshold*2)+'"/><w:szCs w:val="'+Math.round(h2Threshold*2)+'"/><w:color w:val="2C2C2C"/></w:rPr>'+
-        '</w:style>'+
-        '</w:styles>');
-
-      wf.file('document.xml',
-        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-        '<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"'+
-        ' xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'+
-        '<w:body>'+bodyXml+
-        '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr>'+
-        '</w:body></w:document>');
-
-      wf.file('settings.xml',
-        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'+
-        '<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">'+
-        '<w:defaultTabStop w:val="720"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat>'+
-        '</w:settings>');
-
+      wf.file('document.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+paras+'<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr></w:body></w:document>');
+      wf.file('styles.xml','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:style w:type="paragraph" w:styleId="Normal"><w:name w:val="Normal"/><w:rPr><w:sz w:val="24"/></w:rPr></w:style><w:style w:type="paragraph" w:styleId="Heading1"><w:name w:val="heading 1"/><w:rPr><w:b/><w:sz w:val="32"/><w:color w:val="4F8EF7"/></w:rPr></w:style></w:styles>');
+      wf.folder('_rels').file('document.xml.rels','<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"></Relationships>');
       zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'}).then(resolve);
     }
     if(window.JSZip){build();}else{var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';s.onload=build;document.head.appendChild(s);}
   });
 }
-// keep old makeDocx as alias (unused but safe)
-function makeDocx(text){return makeDocxRich([{pageNum:1,items:text.split('\n').map(function(s,i){return {str:s,transform:[0,0,0,12,0,i*14],fontName:''};}),height:792,width:612}],1);}
 
 /* ── VIEW / NAV ── */
 function setView(v){
@@ -2083,38 +1573,18 @@ function updateNavHL(){
 }
 function setFileView(v){
   fView=v;
-  g('gridBtn').classList.toggle('active',v==='grid');
-  g('listBtn').classList.toggle('active',v==='list');
-  renderFilesSection();
+  ['gridBtn','mgridBtn'].forEach(function(id){var el=g(id);if(el)el.classList.toggle('active',v==='grid');});
+  ['listBtn','mlistBtn'].forEach(function(id){var el=g(id);if(el)el.classList.toggle('active',v==='list');});
+  if(cTab==='files')renderFilesSection();else renderRecent();
 }
-function handleSearch(){renderFilesSection();}
-var STORAGE_CAP=15*1024*1024*1024; // 15 GB in bytes
-function updateSto(){
-  function applySize(realSize){
-    var pct=Math.min((realSize/STORAGE_CAP)*100,100);
-    var remaining=Math.max(STORAGE_CAP-realSize,0);
-    g('storageUsed').innerHTML=sz(realSize)+' <span style="color:var(--t3)">/ 15 GB</span>';
-    g('storageFill').style.width=pct.toFixed(1)+'%';
-    // Color: green < 70%, yellow 70-90%, red > 90%
-    var color=pct>=90?'var(--red)':pct>=70?'var(--yellow)':'var(--blue)';
-    g('storageFill').style.background=color;
-    g('storageCap').textContent=pct>=100?'Storage full!':sz(remaining)+' available';
-    g('storageCap').style.color=pct>=90?'var(--red)':pct>=70?'var(--yellow)':'var(--t3)';
-  }
-  // Immediate estimate from metadata
-  var metaSize=Object.values(aFiles).reduce(function(a,f){return a+(f.size||0);},0);
-  applySize(metaSize);
-  // Refined from actual IDB blobs
-  idbTotalSize().then(function(realSize){applySize(realSize);}).catch(function(){});
-}
+function handleSearch(){if(cTab==='files')renderFilesSection();}
+function updateSto(){var t=Object.values(aFiles).filter(function(f){return !f.deleted;}).reduce(function(a,f){return a+(f.size||0);},0);g('storageUsed').textContent=(t/1048576).toFixed(1)+' MB';g('storageFill').style.width=Math.min((t/1073741824)*100,100)+'%';}
 
 /* ── SIDEBAR ── */
 function toggleSidebar(){g('sidebar').classList.toggle('open');g('sbOv').classList.toggle('show');}
 function closeSidebar(){g('sidebar').classList.remove('open');g('sbOv').classList.remove('show');}
 
 /* ── ICON HELPERS ── */
-// fIconHtml returns HTML string with icon (no img from URL — images loaded async via renderThumb)
-function fIconHtml(f,s){return fIcon(f,s||40);}
 function fIcon(f,s){
   s=s||36;var ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase(),type=f.type||'';
   if(type.indexOf('image/')===0||['jpg','jpeg','png','gif','webp','svg','bmp','avif'].indexOf(ext)!==-1)return '<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>';
@@ -2129,29 +1599,12 @@ function fIcon(f,s){
 }
 function folderSVG(c){return '<svg viewBox="0 0 24 24" fill="none" style="width:37px;height:37px"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z" fill="'+c+'" fill-opacity=".13" stroke="'+c+'" stroke-width="1.5"/></svg>';}
 
-/* ── CLOSE PREVIEW — revoke object URL, stop media ── */
-var _origCloseModal=function(id){g(id).classList.remove('open');};
-function closeModal(id){
-  if(id==='previewModal'){
-    var pm=g('previewModal');
-    // Stop any playing media
-    var vid=g('prevVid');if(vid){vid.pause();vid.src='';}
-    var aud=g('prevAud');if(aud){aud.pause();aud.src='';}
-    if(pm._objUrl){URL.revokeObjectURL(pm._objUrl);pm._objUrl=null;}
-    var pb=g('prevBody');pb.innerHTML='';pb.style.background='';
-  }
-  _origCloseModal(id);
-}
-
 /* ── INIT ── */
 document.addEventListener('DOMContentLoaded',function(){
   loadTheme();
-  // Init IDB early
-  openIDB().catch(function(){toast('IndexedDB unavailable — files may not save');});
-  document.querySelectorAll('.overlay').forEach(function(el){el.addEventListener('click',function(e){if(e.target===el)closeModal(el.id);});});
+  document.querySelectorAll('.overlay').forEach(function(el){el.addEventListener('click',function(e){if(e.target===el)UV.closeModal(el.id);});});
   document.addEventListener('click',function(e){if(!e.target.closest('#ctxMenu'))g('ctxMenu').classList.remove('open');});
-  // Load local files for guest immediately
-  loadLocalFiles();
+  renderAll();
   g('loginBanner').style.display='flex';
   g('welcomeBar').style.display='none';
 });
@@ -2161,16 +1614,15 @@ window.UV={
   setView:setView,setFileView:setFileView,handleSearch:handleSearch,setTab:setTab,goHome:goHome,
   triggerUpload:triggerUpload,handleFileSelect:handleFileSelect,handleDragOver:handleDragOver,handleDragLeave:handleDragLeave,handleDrop:handleDrop,
   openNewFolderModal:openNewFolderModal,createFolder:createFolder,openEditFolder:openEditFolder,saveFolder:saveFolder,deleteFolderConfirm:deleteFolderConfirm,openFolder:openFolder,pickColor:pickColor,
-  openNewNoteModal:openNewNoteModal,openEditNote:openEditNote,pickNoteColor:pickNoteColor,saveNote:saveNote,deleteNote:deleteNote,quickDeleteNote:quickDeleteNote,previewNote:previewNote,editFromPreview:editFromPreview,deletePreviewNote:deletePreviewNote,
+  openNewNoteModal:openNewNoteModal,openEditNote:openEditNote,previewNote:previewNote,pickNoteColor:pickNoteColor,saveNote:saveNote,deleteNote:deleteNote,quickDeleteNote:quickDeleteNote,
   openMoveModal:openMoveModal,moveToFolder:moveToFolder,openCtx:openCtx,ctxDo:ctxDo,
   openConvertModal:openConvertModal,handleConvertDrop:handleConvertDrop,handleConvertFile:handleConvertFile,
-  previewFile:previewFile,downloadCurrent:downloadCurrent,deleteCurrent:deleteCurrent,
+  previewFile:previewFile,changeDocZoom:changeDocZoom,downloadCurrent:downloadCurrent,deleteCurrent:deleteCurrent,
   downloadFile:downloadFile,trashFile:trashFile,restoreFile:restoreFile,permDelete:permDelete,emptyTrash:emptyTrash,
   openModal:openModal,closeModal:closeModal,openLoginModal:openLoginModal,openProfile:openProfile,
-  confirmOk:confirmOk,confirmCancel:confirmCancel,
   toggleSidebar:toggleSidebar,closeSidebar:closeSidebar,
   setAuthTab:setAuthTab,signInGoogle:signInGoogle,loginEmail:loginEmail,registerEmail:registerEmail,forgotPassword:forgotPassword,
-  signOut:signOut,saveCompleteProfile:saveCompleteProfile,
+  signOut:signOut,handleUserClick:handleUserClick,saveCompleteProfile:saveCompleteProfile,
   setProfTab:setProfTab,saveProfileInfo:saveProfileInfo,changePassword:changePassword,
   togglePass:togglePass,
   applyTheme:applyTheme,openThemeModal:openThemeModal
