@@ -722,11 +722,13 @@ function openIDB(){
     req.onerror=function(){reject(req.error);};
   });
 }
-function idbSave(id,blob){
+function idbSave(id,fileOrBlob,explicitMime){
   return openIDB().then(function(db){
     return new Promise(function(resolve,reject){
+      var mime=explicitMime||(fileOrBlob.type&&fileOrBlob.type!==''?fileOrBlob.type:'application/octet-stream');
       var tx=db.transaction(IDB_STORE,'readwrite');
-      tx.objectStore(IDB_STORE).put({id:id,blob:blob});
+      // Store blob as-is (no copy) + save mime separately to survive retrieval type loss
+      tx.objectStore(IDB_STORE).put({id:id,blob:fileOrBlob,mime:mime});
       tx.oncomplete=resolve;tx.onerror=function(){reject(tx.error);};
     });
   });
@@ -736,7 +738,26 @@ function idbGet(id){
     return new Promise(function(resolve,reject){
       var tx=db.transaction(IDB_STORE,'readonly');
       var req=tx.objectStore(IDB_STORE).get(id);
-      req.onsuccess=function(){resolve(req.result?req.result.blob:null);};
+      req.onsuccess=function(){
+        if(!req.result){resolve(null);return;}
+        var stored=req.result;
+        var blob=stored.blob;
+        if(!blob){resolve(null);return;}
+        // Attach mime to blob if it lost its type (some browsers strip type on retrieval)
+        var mime=stored.mime||blob.type||'';
+        if(!blob.type||blob.type===''||blob.type==='application/octet-stream'){
+          // Re-wrap only if needed and only for small blobs to avoid OOM on large files
+          if(mime&&mime!=='application/octet-stream'&&blob.size<50*1024*1024){
+            resolve(new Blob([blob],{type:mime}));
+          } else {
+            // For large files, attach mime as a property so preview can use it
+            blob._forceMime=mime;
+            resolve(blob);
+          }
+        } else {
+          resolve(blob);
+        }
+      };
       req.onerror=function(){reject(req.error);};
     });
   });
@@ -1143,10 +1164,11 @@ function handleDrop(e){e.preventDefault();g('uploadZone').classList.remove('drag
 function uploadFile(file){
   var ext=(file.name.split('.').pop()||'').toLowerCase();
   var fileId='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
+  var correctMime=file.type&&file.type!==''&&file.type!=='application/octet-stream'?file.type:extT(ext);
   var meta={
     id:fileId,
     name:file.name,
-    type:file.type||extT(ext),
+    type:correctMime,
     ext:ext,
     size:file.size,
     folderId:cFolder||null,
@@ -1167,7 +1189,7 @@ function uploadFile(file){
     g('upbPct').textContent=prog+'%';
   },80);
 
-  idbSave(fileId,file).then(function(){
+  idbSave(fileId,file,correctMime).then(function(){
     clearInterval(progInt);
     g('upbFill').style.width='100%';
     g('upbPct').textContent='100%';
@@ -1183,7 +1205,7 @@ function uploadFile(file){
   });
 }
 
-function extT(e){return({pdf:'application/pdf',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',gif:'image/gif',webp:'image/webp',svg:'image/svg+xml',mp4:'video/mp4',webm:'video/webm',mov:'video/quicktime',mp3:'audio/mpeg',wav:'audio/wav',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',zip:'application/zip',txt:'text/plain'})[e]||'application/octet-stream';}
+function extT(e){return({pdf:'application/pdf',jpg:'image/jpeg',jpeg:'image/jpeg',png:'image/png',gif:'image/gif',webp:'image/webp',svg:'image/svg+xml',mp4:'video/mp4',webm:'video/webm',mov:'video/mp4',m4v:'video/mp4',avi:'video/x-msvideo',mkv:'video/x-matroska','3gp':'video/3gpp',ogv:'video/ogg',mp3:'audio/mpeg',wav:'audio/wav',ogg:'audio/ogg',aac:'audio/aac',flac:'audio/flac',m4a:'audio/mp4',opus:'audio/opus',doc:'application/msword',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',zip:'application/zip',txt:'text/plain',md:'text/markdown',json:'application/json',xml:'application/xml',js:'text/javascript',ts:'text/typescript',py:'text/x-python',sh:'text/x-sh'})[e]||'application/octet-stream';}
 
 /* ── DOWNLOAD — retrieve blob from IndexedDB ── */
 function downloadFile(id){
@@ -1217,18 +1239,47 @@ function previewFile(id){
     if(type.indexOf('image/')===0||['jpg','jpeg','png','gif','webp','svg','bmp','avif'].indexOf(ext)!==-1){
       body.innerHTML='<img src="'+url+'" alt="'+esc(f.name)+'" style="max-width:100%;max-height:72vh;object-fit:contain;display:block">';
 
-    } else if(type.indexOf('video/')===0||['mp4','webm','mov','avi','mkv','m4v'].indexOf(ext)!==-1){
-      // hljs-style dark video player
+    } else if(type.indexOf('video/')===0||['mp4','webm','mov','avi','mkv','m4v','3gp','ogv'].indexOf(ext)!==-1){
+      // Determine correct MIME — prefer stored blob.type, then _forceMime, fallback to ext map
+      var vMime=(blob.type&&blob.type!==''&&blob.type!=='application/octet-stream')
+        ?blob.type
+        :(blob._forceMime||({mp4:'video/mp4',webm:'video/webm',mov:'video/mp4',m4v:'video/mp4',avi:'video/x-msvideo',mkv:'video/x-matroska','3gp':'video/3gpp',ogv:'video/ogg'}[ext])||f.type||'video/mp4');
+      // Use blob URL directly — NO re-wrap (would double memory for large files)
       body.style.background='#000';
-      body.innerHTML=''
-        +'<div style="width:100%;max-height:72vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#000;position:relative">'
-        +'<video id="prevVid" controls autoplay playsinline src="'+url+'" style="max-width:100%;max-height:68vh;width:100%;outline:none;display:block;background:#000"></video>'
-        +'<div style="width:100%;background:#0d0d0d;border-top:1px solid #1e1e1e;padding:8px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0">'
-        +'<span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#4f8ef7;background:rgba(79,142,247,.12);padding:2px 8px;border-radius:4px;border:1px solid rgba(79,142,247,.2)">'+esc(ext.toUpperCase())+'</span>'
+      body.innerHTML='';
+      var vidWrap=document.createElement('div');
+      vidWrap.style.cssText='width:100%;height:100%;display:flex;flex-direction:column;background:#000';
+      var vid=document.createElement('video');
+      vid.id='prevVid';vid.controls=true;vid.autoplay=true;vid.playsInline=true;
+      vid.style.cssText='flex:1;width:100%;max-height:68vh;outline:none;display:block;background:#000;min-height:120px';
+      // Try with explicit MIME type first via <source>
+      var srcEl=document.createElement('source');
+      srcEl.src=url;srcEl.type=vMime;
+      vid.appendChild(srcEl);
+      // If <source> fails, try assigning src directly (bypasses MIME check)
+      srcEl.onerror=function(){
+        vid.removeChild(srcEl);
+        vid.src=url;
+        vid.load();
+        vid.play().catch(function(){});
+      };
+      vid.onerror=function(){
+        // Last resort: show download prompt
+        body.style.background='var(--bg)';
+        body.innerHTML='<div style="text-align:center;padding:40px 20px">'
+          +'<div style="font-size:48px;margin-bottom:16px">🎬</div>'
+          +'<div style="font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px">'+esc(f.name)+'</div>'
+          +'<div style="font-size:12.5px;color:var(--t3);margin-bottom:18px">Your browser cannot play this video format inline.<br>Download it to watch with a media player.</div>'
+          +'<button class="btn btn-p" onclick="UV.downloadFile(\''+id+'\')">⬇ Download to Watch</button>'
+          +'</div>';
+      };
+      var bar=document.createElement('div');
+      bar.style.cssText='width:100%;background:#0d0d0d;border-top:1px solid #1e1e1e;padding:8px 14px;display:flex;align-items:center;gap:10px;flex-shrink:0';
+      bar.innerHTML='<span style="font-family:JetBrains Mono,monospace;font-size:10px;color:#4f8ef7;background:rgba(79,142,247,.12);padding:2px 8px;border-radius:4px;border:1px solid rgba(79,142,247,.2)">'+esc((ext||'mp4').toUpperCase())+'</span>'
         +'<span style="font-size:11px;color:#505050;font-family:JetBrains Mono,monospace;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(f.name)+'</span>'
-        +'<span style="font-size:11px;color:#505050;font-family:JetBrains Mono,monospace">'+sz(f.size)+'</span>'
-        +'</div>'
-        +'</div>';
+        +'<span style="font-size:11px;color:#505050;font-family:JetBrains Mono,monospace">'+sz(f.size)+'</span>';
+      vidWrap.appendChild(vid);vidWrap.appendChild(bar);
+      body.appendChild(vidWrap);
 
     } else if(type==='application/pdf'||ext==='pdf'){
       body.style.background='var(--bg)';
