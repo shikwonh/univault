@@ -1315,7 +1315,6 @@ function restoreFile(id){
   toast('File restored!');
 }
 function permDelete(id){
-  if(!confirm('Permanently delete? Cannot be undone.'))return;
   localDeleteFile(id).then(function(){
     renderFilesSection();
     updateSto();
@@ -1323,14 +1322,13 @@ function permDelete(id){
   });
 }
 function emptyTrash(){
-  if(!confirm('Empty trash permanently?'))return;
-  // Collect keys first to avoid mutating while iterating
   var ids=Object.keys(aFiles).filter(function(id){return aFiles[id].deleted;});
   if(!ids.length){toast('Trash is already empty');return;}
+  if(!confirm('Empty trash? This cannot be undone.'))return;
   Promise.all(ids.map(function(id){return localDeleteFile(id);})).then(function(){
     renderFilesSection();
     updateSto();
-    toast('Trash emptied');
+    toast('Trash emptied ✓');
   });
 }
 function downloadCurrent(){if(prevId)downloadFile(prevId);}
@@ -1463,7 +1461,14 @@ function renderTrash(){
   c.innerHTML='<div class="trash-bar"><button class="btn btn-d btn-sm" onclick="UV.emptyTrash()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Empty Trash</button></div>'
     +es.map(function(e){
       var id=e[0],f=e[1],ext=(f.ext||(f.name||'').split('.').pop()||'').toLowerCase();
-      return '<div class="filecrd fi-anim" style="opacity:.6"><div class="fthumb" data-thumb="'+id+'">'+fIconHtml(f,40)+'<div class="ftype-badge">'+esc(ext||'file')+'</div></div><div class="finfo"><div class="fnm">'+esc(f.name)+'</div><div class="fmeta">'+sz(f.size)+'</div></div><div class="facts"><div class="fact" onclick="UV.restoreFile(\''+id+'\')" style="color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg></div><div class="fact" onclick="UV.permDelete(\''+id+'\')" style="color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div></div>';
+      return '<div class="filecrd fi-anim" style="opacity:.75">'
+        +'<div class="fthumb" data-thumb="'+id+'">'+fIconHtml(f,40)+'<div class="ftype-badge">'+esc(ext||'file')+'</div></div>'
+        +'<div class="finfo"><div class="fnm">'+esc(f.name)+'</div><div class="fmeta">'+sz(f.size)+'</div></div>'
+        +'<div style="display:flex;gap:6px;padding:0 10px 10px">'
+        +'<button onclick="UV.restoreFile(\''+id+'\')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 0;border-radius:8px;background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.2);color:var(--green);font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>Restore</button>'
+        +'<button onclick="UV.permDelete(\''+id+'\')" style="flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:7px 0;border-radius:8px;background:rgba(242,95,92,.1);border:1px solid rgba(242,95,92,.2);color:var(--red);font-family:Outfit,sans-serif;font-size:12px;font-weight:600;cursor:pointer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:12px;height:12px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Delete</button>'
+        +'</div>'
+        +'</div>';
     }).join('');
   es.forEach(function(e){renderThumb(e[0],e[1]);});
 }
