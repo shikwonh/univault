@@ -380,7 +380,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
     <div class="sb-folders" id="sbFolders"><div style="font-size:12px;color:var(--t3);padding:4px 12px">No folders yet</div></div>
   </div>
   <div class="sb-foot">
-    <div class="sto-wrap"><div class="sto-row"><span>Device Storage</span><span id="storageUsed">0 MB</span></div><div class="sto-bar"><div class="sto-fill" id="storageFill" style="width:0%"></div></div></div>
+    <div class="sto-wrap"><div class="sto-row"><span>Device Storage</span><span id="storageUsed">0 B <span style="color:var(--t3)">/ 15 GB</span></span></div><div class="sto-bar"><div class="sto-fill" id="storageFill" style="width:0%"></div></div><div id="storageCap" style="font-size:10.5px;color:var(--t3);margin-top:4px;text-align:right">15 GB available</div></div>
     <div class="user-pill" onclick="UV.openProfile()">
       <div class="uav" id="sidebarAv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="width:16px;height:16px;color:var(--t3)"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
       <div style="flex:1;min-width:0"><div class="user-nm" id="sidebarName">Guest User</div><div class="user-sub" id="sidebarSub">Sign in to sync metadata</div></div>
@@ -1165,6 +1165,14 @@ function uploadFile(file){
   var ext=(file.name.split('.').pop()||'').toLowerCase();
   var fileId='f_'+Date.now()+'_'+Math.random().toString(36).slice(2,8);
   var correctMime=file.type&&file.type!==''&&file.type!=='application/octet-stream'?file.type:extT(ext);
+
+  // Check storage cap before saving
+  var usedSize=Object.values(aFiles).reduce(function(a,f){return a+(f.size||0);},0);
+  if(usedSize+file.size>STORAGE_CAP){
+    var remaining=Math.max(STORAGE_CAP-usedSize,0);
+    toast('❌ Not enough space! '+sz(remaining)+' left, file is '+sz(file.size));
+    return;
+  }
   var meta={
     id:fileId,
     name:file.name,
@@ -1715,16 +1723,24 @@ function setFileView(v){
   renderFilesSection();
 }
 function handleSearch(){renderFilesSection();}
+var STORAGE_CAP=15*1024*1024*1024; // 15 GB in bytes
 function updateSto(){
+  function applySize(realSize){
+    var pct=Math.min((realSize/STORAGE_CAP)*100,100);
+    var remaining=Math.max(STORAGE_CAP-realSize,0);
+    g('storageUsed').innerHTML=sz(realSize)+' <span style="color:var(--t3)">/ 15 GB</span>';
+    g('storageFill').style.width=pct.toFixed(1)+'%';
+    // Color: green < 70%, yellow 70-90%, red > 90%
+    var color=pct>=90?'var(--red)':pct>=70?'var(--yellow)':'var(--blue)';
+    g('storageFill').style.background=color;
+    g('storageCap').textContent=pct>=100?'Storage full!':sz(remaining)+' available';
+    g('storageCap').style.color=pct>=90?'var(--red)':pct>=70?'var(--yellow)':'var(--t3)';
+  }
   // Immediate estimate from metadata
   var metaSize=Object.values(aFiles).reduce(function(a,f){return a+(f.size||0);},0);
-  g('storageUsed').textContent=sz(metaSize);
-  g('storageFill').style.width=Math.min((metaSize/1073741824)*100,100)+'%';
+  applySize(metaSize);
   // Refined from actual IDB blobs
-  idbTotalSize().then(function(realSize){
-    g('storageUsed').textContent=sz(realSize);
-    g('storageFill').style.width=Math.min((realSize/1073741824)*100,100)+'%';
-  }).catch(function(){});
+  idbTotalSize().then(function(realSize){applySize(realSize);}).catch(function(){});
 }
 
 /* ── SIDEBAR ── */
