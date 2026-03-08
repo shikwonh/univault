@@ -236,6 +236,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
 .ncrd-date{font-size:10.5px;color:var(--t3)}
 .ndel{width:22px;height:22px;border-radius:5px;background:rgba(242,95,92,.1);border:none;color:var(--red);cursor:pointer;display:grid;place-items:center;opacity:0;transition:var(--tr)}
 .ncrd:hover .ndel{opacity:1}.ndel svg{width:11px;height:11px}
+/* Note preview accent colors */
+#notePreviewSheet.np-yellow{background:rgba(247,201,72,.04)}
+#notePreviewSheet.np-green{background:rgba(62,207,142,.04)}
+#notePreviewSheet.np-blue{background:rgba(79,142,247,.04)}
+#notePreviewSheet.np-pink{background:rgba(244,114,182,.04)}
+#notePreviewSheet.np-purple{background:rgba(167,139,250,.04)}
 
 .nc-pick{display:flex;gap:7px}.nc-opt{width:24px;height:24px;border-radius:6px;cursor:pointer;border:2.5px solid transparent;transition:var(--tr)}
 .nc-opt.sel{border-color:var(--wh);transform:scale(1.12)}
@@ -620,6 +626,29 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
       <div style="flex:1"></div>
       <button class="btn btn-g" onclick="UV.closeModal('noteModal')">Cancel</button>
       <button class="btn btn-p" onclick="UV.saveNote()">Save Note</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTE PREVIEW -->
+<div class="overlay" id="notePreviewModal">
+  <div class="sheet sheet-lg" id="notePreviewSheet" style="display:flex;flex-direction:column;max-height:92vh">
+    <div class="sheet-handle"></div>
+    <div class="sheet-hdr" id="notePreviewHdr">
+      <div style="display:flex;align-items:center;gap:10px;flex:1;min-width:0">
+        <div id="notePreviewDot" style="width:10px;height:10px;border-radius:50%;flex-shrink:0"></div>
+        <div class="sheet-ttl" id="notePreviewTitle" style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Note</div>
+      </div>
+      <button class="sheet-cls" onclick="UV.closeModal('notePreviewModal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+    <div id="notePreviewMeta" style="padding:0 20px 10px;font-size:11px;color:var(--t3)"></div>
+    <div id="notePreviewBar" style="height:2px;margin:0 20px 14px;border-radius:2px"></div>
+    <div id="notePreviewBody" style="flex:1;overflow-y:auto;padding:0 20px 20px;font-size:15px;line-height:1.75;color:var(--t1);white-space:pre-wrap;word-break:break-word;min-height:0"></div>
+    <div class="sheet-foot" id="notePreviewFoot">
+      <button class="btn btn-d btn-sm" id="npDelBtn" onclick="UV.deletePreviewNote()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/></svg>Delete</button>
+      <div style="flex:1"></div>
+      <button class="btn btn-g" onclick="UV.closeModal('notePreviewModal')">Close</button>
+      <button class="btn btn-p" id="npEditBtn" onclick="UV.editFromPreview()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>Edit</button>
     </div>
   </div>
 </div>
@@ -1444,7 +1473,7 @@ function renderNotesSection(){
   if(!ns.length){c.innerHTML='<div class="empty" style="grid-column:1/-1"><div class="empty-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="width:27px;height:27px"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div><h3>No notes yet</h3><p>Tap "Add Note" to create your first note</p></div>';return;}
   c.innerHTML=ns.map(function(e){
     var id=e[0],n=e[1],cls='nc-'+(n.color||'yellow');
-    return '<div class="ncrd '+cls+' fi-anim" onclick="UV.openEditNote(\''+id+'\')">'
+    return '<div class="ncrd '+cls+' fi-anim" onclick="UV.previewNote(\''+id+'\')">'
       +'<div class="ncrd-bar"></div>'
       +(n.title?'<div class="ncrd-ttl">'+esc(n.title)+'</div>':'')
       +'<div class="ncrd-body">'+esc(n.content||'')+'</div>'
@@ -1565,6 +1594,54 @@ function renderFLI(id,f){
 
 /* ── NOTES MODAL ── */
 function buildNcPick(sel){g('ncPick').innerHTML=NOTE_COLORS.map(function(c){return '<div class="nc-opt nc-'+c+(c===sel?' sel':'')+'" onclick="UV.pickNoteColor(\''+c+'\')" title="'+c+'"></div>';}).join('');}
+
+/* ── NOTE PREVIEW ── */
+var NOTE_COLOR_MAP={
+  yellow:{accent:'var(--yellow)',hex:'#f7c948'},
+  green:{accent:'var(--green)',hex:'#3ecf8e'},
+  blue:{accent:'var(--blue)',hex:'#4f8ef7'},
+  pink:{accent:'var(--pink)',hex:'#f472b6'},
+  purple:{accent:'var(--purple)',hex:'#a78bfa'}
+};
+var prevNoteId=null;
+function previewNote(id){
+  var n=aNotes[id];if(!n)return;
+  prevNoteId=id;
+  var col=n.color||'yellow';
+  var cm=NOTE_COLOR_MAP[col]||NOTE_COLOR_MAP.yellow;
+  // Set sheet accent
+  var sheet=g('notePreviewSheet');
+  sheet.className='sheet sheet-lg np-'+col;
+  // Header accent dot
+  g('notePreviewDot').style.background=cm.hex;
+  // Title
+  g('notePreviewTitle').textContent=n.title||'Untitled Note';
+  // Meta
+  var ts=n.updatedAt||n.createdAt;
+  var wordCount=(n.content||'').trim().split(/\s+/).filter(Boolean).length;
+  g('notePreviewMeta').textContent=(ts?ago(ts)+' · ':'')+wordCount+' word'+(wordCount!==1?'s':'');
+  // Color bar
+  g('notePreviewBar').style.background=cm.hex;
+  // Body — render newlines, linkify URLs
+  var raw=esc(n.content||'(empty note)');
+  // Linkify
+  raw=raw.replace(/(https?:\/\/[^\s&lt;&gt;"]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:'+cm.hex+';text-decoration:underline;text-underline-offset:3px">$1</a>');
+  g('notePreviewBody').innerHTML=raw;
+  openModal('notePreviewModal');
+}
+function editFromPreview(){
+  if(!prevNoteId)return;
+  closeModal('notePreviewModal');
+  setTimeout(function(){openEditNote(prevNoteId);},180);
+}
+function deletePreviewNote(){
+  if(!prevNoteId)return;
+  if(!confirm('Delete this note?'))return;
+  dbDeleteNote(prevNoteId);
+  closeModal('notePreviewModal');
+  toast('Note deleted');
+  prevNoteId=null;
+}
 function openNewNoteModal(){
   if(!cUser){openLoginModal();return;}
   editNoteId=null;selNoteColor='yellow';
@@ -1959,7 +2036,7 @@ window.UV={
   setView:setView,setFileView:setFileView,handleSearch:handleSearch,setTab:setTab,goHome:goHome,
   triggerUpload:triggerUpload,handleFileSelect:handleFileSelect,handleDragOver:handleDragOver,handleDragLeave:handleDragLeave,handleDrop:handleDrop,
   openNewFolderModal:openNewFolderModal,createFolder:createFolder,openEditFolder:openEditFolder,saveFolder:saveFolder,deleteFolderConfirm:deleteFolderConfirm,openFolder:openFolder,pickColor:pickColor,
-  openNewNoteModal:openNewNoteModal,openEditNote:openEditNote,pickNoteColor:pickNoteColor,saveNote:saveNote,deleteNote:deleteNote,quickDeleteNote:quickDeleteNote,
+  openNewNoteModal:openNewNoteModal,openEditNote:openEditNote,pickNoteColor:pickNoteColor,saveNote:saveNote,deleteNote:deleteNote,quickDeleteNote:quickDeleteNote,previewNote:previewNote,editFromPreview:editFromPreview,deletePreviewNote:deletePreviewNote,
   openMoveModal:openMoveModal,moveToFolder:moveToFolder,openCtx:openCtx,ctxDo:ctxDo,
   openConvertModal:openConvertModal,handleConvertDrop:handleConvertDrop,handleConvertFile:handleConvertFile,
   previewFile:previewFile,downloadCurrent:downloadCurrent,deleteCurrent:deleteCurrent,
