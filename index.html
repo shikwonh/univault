@@ -630,6 +630,22 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t1);height
   </div>
 </div>
 
+<!-- CONFIRM DIALOG -->
+<div class="overlay" id="confirmModal" style="z-index:9999">
+  <div class="sheet" style="max-width:400px;margin:0 auto">
+    <div class="sheet-handle"></div>
+    <div style="padding:24px 22px 6px;text-align:center">
+      <div id="confirmIcon" style="width:52px;height:52px;border-radius:50%;margin:0 auto 14px;display:grid;place-items:center"></div>
+      <div id="confirmTitle" style="font-size:17px;font-weight:800;color:var(--t1);margin-bottom:8px;letter-spacing:-.3px"></div>
+      <div id="confirmMsg" style="font-size:13.5px;color:var(--t2);line-height:1.6"></div>
+    </div>
+    <div class="sheet-foot" style="gap:10px;padding:20px">
+      <button class="btn btn-g" style="flex:1;justify-content:center;padding:13px" onclick="UV.confirmCancel()">Cancel</button>
+      <button class="btn btn-d" id="confirmOkBtn" style="flex:1;justify-content:center;padding:13px" onclick="UV.confirmOk()">Delete</button>
+    </div>
+  </div>
+</div>
+
 <!-- NOTE PREVIEW -->
 <div class="overlay" id="notePreviewModal">
   <div class="sheet sheet-lg" id="notePreviewSheet" style="display:flex;flex-direction:column;max-height:92vh">
@@ -1130,8 +1146,12 @@ function changePassword(){
   });
 }
 function signOut(){
-  if(!confirm('Sign out?'))return;
-  FB.mAuth.signOut(FB.auth).then(function(){toast('Signed out');closeModal('profileModal');});
+  showConfirm({
+    title:'Sign Out',msg:'You will be signed out of your account.',ok:'Sign Out',danger:false,
+    icon:'<svg viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8" style="width:26px;height:26px"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>'
+  },function(){
+    FB.mAuth.signOut(FB.auth).then(function(){toast('Signed out');closeModal('profileModal');});
+  });
 }
 
 /* ── DATABASE (Firebase — folders & notes only) ── */
@@ -1143,7 +1163,22 @@ function loadData(){
   // Subscribe to folders and notes from Firebase Realtime DB
   FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/profile'),function(s){userProfile=s.val()||{};updateUserUI();});
   FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/folders'),function(s){aFolders=s.val()||{};renderSbFolders();renderFolderCards();updateTabBadges();});
-  FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/notes'),function(s){aNotes=s.val()||{};renderNotesSection();updateTabBadges();});
+  FB.mDb.onValue(FB.mDb.ref(FB.db,'users/'+u+'/notes'),function(s){
+    var wasTempPrev=prevNoteId&&prevNoteId.indexOf('tmp_')===0;
+    aNotes=s.val()||{};
+    renderNotesSection();updateTabBadges();
+    // If preview was showing a temp note, find the real one and update preview
+    if(wasTempPrev){
+      var allNotes=Object.entries(aNotes);
+      if(allNotes.length){
+        var newest=allNotes.sort(function(a,b){return (b[1].createdAt||0)-(a[1].createdAt||0);})[0];
+        if(newest&&g('notePreviewModal')&&g('notePreviewModal').classList.contains('open')){
+          prevNoteId=newest[0];
+          previewNote(newest[0]);
+        }
+      }
+    }
+  });
 }
 function dbPF(n,c,sub){if(!FB.ready||!cUser)return;var r=FB.mDb.push(FB.mDb.ref(FB.db,'users/'+uid()+'/folders'));FB.mDb.set(r,{name:n,color:c,subject:sub||'',createdAt:Date.now()});}
 function dbUF(id,d){if(!FB.ready||!cUser)return;FB.mDb.update(FB.mDb.ref(FB.db,'users/'+uid()+'/folders/'+id),d);}
@@ -1412,11 +1447,10 @@ function permDelete(id){
 function emptyTrash(){
   var ids=Object.keys(aFiles).filter(function(id){return aFiles[id].deleted;});
   if(!ids.length){toast('Trash is already empty');return;}
-  if(!confirm('Empty trash? This cannot be undone.'))return;
-  Promise.all(ids.map(function(id){return localDeleteFile(id);})).then(function(){
-    renderFilesSection();
-    updateSto();
-    toast('Trash emptied ✓');
+  showConfirm({title:'Empty Trash',msg:'Permanently delete '+ids.length+' file'+(ids.length!==1?'s':'')+' from this device? This cannot be undone.',ok:'Empty Trash'},function(){
+    Promise.all(ids.map(function(id){return localDeleteFile(id);})).then(function(){
+      renderFilesSection();updateSto();toast('Trash emptied ✓');
+    });
   });
 }
 function downloadCurrent(){if(prevId)downloadFile(prevId);}
@@ -1593,6 +1627,28 @@ function renderFLI(id,f){
 }
 
 /* ── NOTES MODAL ── */
+/* ── CUSTOM CONFIRM DIALOG ── */
+var _confirmCb=null;
+function showConfirm(opts,cb){
+  // opts: {title, msg, ok, icon, danger}
+  _confirmCb=cb;
+  var danger=opts.danger!==false;
+  var iconColor=danger?'rgba(242,95,92,.12)':'rgba(79,142,247,.12)';
+  var iconStroke=danger?'var(--red)':'var(--blue)';
+  var iconSvg=opts.icon||'<svg viewBox="0 0 24 24" fill="none" stroke="'+iconStroke+'" stroke-width="1.8" style="width:26px;height:26px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>';
+  g('confirmIcon').style.background=iconColor;
+  g('confirmIcon').innerHTML=iconSvg;
+  g('confirmTitle').textContent=opts.title||'Are you sure?';
+  g('confirmMsg').textContent=opts.msg||'';
+  var okBtn=g('confirmOkBtn');
+  okBtn.textContent=opts.ok||'Delete';
+  okBtn.className='btn '+(danger?'btn-d':'btn-p');
+  okBtn.style.cssText='flex:1;justify-content:center;padding:13px';
+  openModal('confirmModal');
+}
+function confirmOk(){closeModal('confirmModal');if(_confirmCb){var cb=_confirmCb;_confirmCb=null;cb();}}
+function confirmCancel(){closeModal('confirmModal');_confirmCb=null;}
+
 function buildNcPick(sel){g('ncPick').innerHTML=NOTE_COLORS.map(function(c){return '<div class="nc-opt nc-'+c+(c===sel?' sel':'')+'" onclick="UV.pickNoteColor(\''+c+'\')" title="'+c+'"></div>';}).join('');}
 
 /* ── NOTE PREVIEW ── */
@@ -1609,25 +1665,21 @@ function previewNote(id){
   prevNoteId=id;
   var col=n.color||'yellow';
   var cm=NOTE_COLOR_MAP[col]||NOTE_COLOR_MAP.yellow;
-  // Set sheet accent
   var sheet=g('notePreviewSheet');
   sheet.className='sheet sheet-lg np-'+col;
-  // Header accent dot
   g('notePreviewDot').style.background=cm.hex;
-  // Title
   g('notePreviewTitle').textContent=n.title||'Untitled Note';
-  // Meta
   var ts=n.updatedAt||n.createdAt;
   var wordCount=(n.content||'').trim().split(/\s+/).filter(Boolean).length;
   g('notePreviewMeta').textContent=(ts?ago(ts)+' · ':'')+wordCount+' word'+(wordCount!==1?'s':'');
-  // Color bar
   g('notePreviewBar').style.background=cm.hex;
-  // Body — render newlines, linkify URLs
   var raw=esc(n.content||'(empty note)');
-  // Linkify
   raw=raw.replace(/(https?:\/\/[^\s&lt;&gt;"]+)/g,'<a href="$1" target="_blank" rel="noopener" style="color:'+cm.hex+';text-decoration:underline;text-underline-offset:3px">$1</a>');
   g('notePreviewBody').innerHTML=raw;
-  openModal('notePreviewModal');
+  // Open modal only if not already open
+  if(!g('notePreviewModal').classList.contains('open')){
+    openModal('notePreviewModal');
+  }
 }
 function editFromPreview(){
   if(!prevNoteId)return;
@@ -1636,11 +1688,10 @@ function editFromPreview(){
 }
 function deletePreviewNote(){
   if(!prevNoteId)return;
-  if(!confirm('Delete this note?'))return;
-  dbDeleteNote(prevNoteId);
-  closeModal('notePreviewModal');
-  toast('Note deleted');
-  prevNoteId=null;
+  var n=aNotes[prevNoteId];
+  showConfirm({title:'Delete Note',msg:'"'+(n&&n.title?n.title:'This note')+'" will be permanently deleted.',ok:'Delete'},function(){
+    dbDeleteNote(prevNoteId);closeModal('notePreviewModal');toast('Note deleted');prevNoteId=null;
+  });
 }
 function openNewNoteModal(){
   if(!cUser){openLoginModal();return;}
@@ -1660,27 +1711,54 @@ function pickNoteColor(c){selNoteColor=c;buildNcPick(c);}
 function saveNote(){
   var title=g('noteTitle').value.trim(), content=g('noteContent').value.trim();
   if(!content&&!title){toast('Write something first');return;}
+  closeModal('noteModal');
+
   if(editNoteId){
     dbUpdateNote(editNoteId,{title:title,content:content,color:selNoteColor});
+    // Patch aNotes locally so preview reflects update instantly (before Firebase sync)
+    if(aNotes[editNoteId]){
+      aNotes[editNoteId]=Object.assign({},aNotes[editNoteId],{title:title,content:content,color:selNoteColor,updatedAt:Date.now()});
+    }
     toast('Note updated! ✓');
+    // Refresh preview if it was open for this note
+    setTimeout(function(){previewNote(editNoteId);},160);
   } else {
-    dbAddNote({folderId:cFolder,title:title,content:content,color:selNoteColor});
+    // For new notes, generate a temp local ID so we can preview immediately
+    var tempId='tmp_'+Date.now();
+    var newNote={folderId:cFolder,title:title,content:content,color:selNoteColor,createdAt:Date.now(),updatedAt:Date.now()};
+    aNotes[tempId]=newNote;
+    dbAddNote(newNote); // Firebase will assign real ID and update aNotes via onValue
     toast('Note saved! ✓');
+    renderNotesSection();
+    updateTabBadges();
+    setTimeout(function(){previewNote(tempId);},160);
   }
-  closeModal('noteModal');
 }
 function deleteNote(){
-  if(!editNoteId)return;if(!confirm('Delete this note?'))return;
-  dbDeleteNote(editNoteId);closeModal('noteModal');toast('Note deleted');
+  if(!editNoteId)return;
+  var n=aNotes[editNoteId];
+  showConfirm({title:'Delete Note',msg:'"'+(n&&n.title?n.title:'This note')+'" will be permanently deleted.',ok:'Delete'},function(){
+    dbDeleteNote(editNoteId);closeModal('noteModal');toast('Note deleted');
+  });
 }
-function quickDeleteNote(id){if(!confirm('Delete this note?'))return;dbDeleteNote(id);toast('Note deleted');}
+function quickDeleteNote(id){
+  var n=aNotes[id];
+  showConfirm({title:'Delete Note',msg:'"'+(n&&n.title?n.title:'This note')+'" will be permanently deleted.',ok:'Delete'},function(){
+    dbDeleteNote(id);toast('Note deleted');
+  });
+}
 
 /* ── FOLDERS ── */
 function openNewFolderModal(){if(!cUser){openLoginModal();return;}g('folderNameInput').value='';g('folderSubjectInput').value='';selColor='#4f8ef7';buildPicker('cpickNew',selColor);openModal('newFolderModal');setTimeout(function(){g('folderNameInput').focus();},300);}
 function createFolder(){var n=g('folderNameInput').value.trim();if(!n){toast('Enter a name');return;}dbPF(n,selColor,g('folderSubjectInput').value.trim());closeModal('newFolderModal');toast('"'+n+'" folder created!');}
 function openEditFolder(id){var f=aFolders[id];if(!f)return;editFId=id;g('editFolderNameInput').value=f.name;selColor=f.color||'#4f8ef7';buildPicker('cpickEdit',selColor);openModal('editFolderModal');}
 function saveFolder(){var n=g('editFolderNameInput').value.trim();if(!n){toast('Enter a name');return;}dbUF(editFId,{name:n,color:selColor});closeModal('editFolderModal');toast('Folder updated!');}
-function deleteFolderConfirm(){if(!confirm('Delete folder? Files and notes will be unlinked.'))return;dbDF(editFId);if(cFolder===editFId){cFolder=null;cTab='files';showFolderUI(false);}closeModal('editFolderModal');toast('Folder deleted');}
+function deleteFolderConfirm(){
+  var f=aFolders[editFId];
+  showConfirm({title:'Delete Folder',msg:'"'+(f?f.name:'This folder')+'" will be deleted. Files and notes inside will be unlinked.',ok:'Delete Folder'},function(){
+    dbDF(editFId);if(cFolder===editFId){cFolder=null;cTab='files';showFolderUI(false);}closeModal('editFolderModal');toast('Folder deleted');
+  });
+}
 function openFolder(id){
   cFolder=id;cTab='files';cView='home';
   updateNavHL();renderSbFolders();renderFolderCards();
@@ -2042,6 +2120,7 @@ window.UV={
   previewFile:previewFile,downloadCurrent:downloadCurrent,deleteCurrent:deleteCurrent,
   downloadFile:downloadFile,trashFile:trashFile,restoreFile:restoreFile,permDelete:permDelete,emptyTrash:emptyTrash,
   openModal:openModal,closeModal:closeModal,openLoginModal:openLoginModal,openProfile:openProfile,
+  confirmOk:confirmOk,confirmCancel:confirmCancel,
   toggleSidebar:toggleSidebar,closeSidebar:closeSidebar,
   setAuthTab:setAuthTab,signInGoogle:signInGoogle,loginEmail:loginEmail,registerEmail:registerEmail,forgotPassword:forgotPassword,
   signOut:signOut,saveCompleteProfile:saveCompleteProfile,
